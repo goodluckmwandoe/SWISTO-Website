@@ -43,7 +43,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const whatsappMessage = `New SWISTO Inquiry:%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AType: ${formData.type}%0AMessage: ${formData.message}`;
     
     // Redirect to WhatsApp with pre-filled message
-    window.open(`https://wa.me/254712345678?text=${whatsappMessage}`, '_blank');
+    window.open(`https://wa.me/254794465650?text=${whatsappMessage}`, '_blank');
     
     // Reset form
     this.reset();
@@ -88,4 +88,5 @@ document.querySelectorAll('.step, .category, .hotel-text, .supplier-text').forEa
 
 window.addEventListener('scroll', animateOnScroll);
 // Initial check
+
 animateOnScroll();
