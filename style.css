@@ -169,14 +169,13 @@ body {
 }
 
 .emergency-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    color: #1E293B;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    color: white;
     padding: 2.5rem;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 
-                0 0 0 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 320px;
     position: relative;
@@ -190,20 +189,22 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #DE2910, #FF6B35);
+    background: linear-gradient(90deg, #FF6B35, #DE2910);
 }
 
 .emergency-card h4 {
-    color: #DE2910;
+    color: white;
     margin-bottom: 1rem;
     font-size: 1.3rem;
     font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .emergency-card p {
-    color: #64748B;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 1.5rem;
     line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .emergency-card h4 {
@@ -538,6 +539,7 @@ body {
     }
 
 }
+
 
 
 
