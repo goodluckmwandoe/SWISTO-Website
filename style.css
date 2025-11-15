@@ -31,18 +31,15 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* This creates space between logo and menu */
     align-items: center;
-    height: 80px; /* Reduced from 120px */
+    height: 80px;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
-}
-
-.nav-logo img {
-    height: 50px; /* Control logo size here */
+    flex: 1; /* ← Logo takes available space */
 }
 
 .nav-menu {
@@ -51,6 +48,8 @@ body {
     align-items: center;
     margin: 0;
     padding: 0;
+    flex: 2; /* ← Menu takes more space */
+    justify-content: flex-end; /* ← Pushes menu to the right */
 }
 
 .nav-link {
@@ -499,5 +498,6 @@ body {
     }
 
 }
+
 
 
