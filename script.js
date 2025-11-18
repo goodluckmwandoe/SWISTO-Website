@@ -26,6 +26,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Tab Functionality for How It Works Section
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabPanes = document.querySelectorAll('.tab-pane');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons and panes
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Show corresponding tab pane
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+
 // Contact Form Handling
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -43,7 +62,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const whatsappMessage = `New SWISTO Inquiry:%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AType: ${formData.type}%0AMessage: ${formData.message}`;
     
     // Redirect to WhatsApp with pre-filled message
-    window.open(`https://wa.me/254794465650?text=${whatsappMessage}`, '_blank');
+    window.open(`https://wa.me/254712345678?text=${whatsappMessage}`, '_blank');
     
     // Reset form
     this.reset();
@@ -66,7 +85,7 @@ window.addEventListener('scroll', function() {
 
 // Animation on scroll
 function animateOnScroll() {
-    const elements = document.querySelectorAll('.step, .category, .hotel-text, .supplier-text');
+    const elements = document.querySelectorAll('.step, .service-item, .mission-card, .plan, .login-card');
     
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
@@ -80,7 +99,7 @@ function animateOnScroll() {
 }
 
 // Set initial state for animation
-document.querySelectorAll('.step, .category, .hotel-text, .supplier-text').forEach(element => {
+document.querySelectorAll('.step, .service-item, .mission-card, .plan, .login-card').forEach(element => {
     element.style.opacity = "0";
     element.style.transform = "translateY(20px)";
     element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
@@ -88,5 +107,4 @@ document.querySelectorAll('.step, .category, .hotel-text, .supplier-text').forEa
 
 window.addEventListener('scroll', animateOnScroll);
 // Initial check
-
 animateOnScroll();
