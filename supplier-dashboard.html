@@ -18,7 +18,10 @@
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="#" class="nav-link" onclick="logout()">Logout</a>
+                <div class="nav-user">
+                    <span class="user-name">Coastal Supplies Ltd</span>
+                    <a href="#" class="nav-link" onclick="logout()">Logout</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -26,54 +29,286 @@
     <!-- Supplier Dashboard -->
     <section class="dashboard-section">
         <div class="container">
+            <!-- Dashboard Header -->
             <div class="dashboard-header">
-                <h1>Supplier Dashboard</h1>
-                <p>Welcome back! Manage your products and orders.</p>
-            </div>
-
-            <div class="dashboard-grid">
-                <div class="dashboard-card">
-                    <i class="fas fa-boxes"></i>
-                    <h3>Product Management</h3>
-                    <p>Manage your product catalog and stock levels</p>
-                    <a href="products.html" class="btn btn-outline">Manage Products</a>
+                <div class="header-content">
+                    <h1>Supplier Dashboard</h1>
+                    <p>Manage your products, orders, and grow your business</p>
                 </div>
-
-                <div class="dashboard-card">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>Orders</h3>
-                    <p>View and process customer orders</p>
-                    <a href="supplier-orders.html" class="btn btn-outline">View Orders</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <i class="fas fa-bell"></i>
-                    <h3>Emergency Requests</h3>
-                    <p>Respond to urgent hotel needs</p>
-                    <a href="supplier-requests.html" class="btn btn-outline">View Requests</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Analytics</h3>
-                    <p>View your business performance</p>
-                    <a href="analytics.html" class="btn btn-outline">View Analytics</a>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="addNewProduct()">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
                 </div>
             </div>
 
             <!-- Quick Stats -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h4>Pending Orders</h4>
-                    <div class="stat-number">5</div>
+                    <div class="stat-icon orders">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>New Orders</h3>
+                        <div class="stat-number">5</div>
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <h4>Products Listed</h4>
-                    <div class="stat-number">23</div>
+                    <div class="stat-icon revenue">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Today's Revenue</h3>
+                        <div class="stat-number">KSh 28,400</div>
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <h4>This Month's Revenue</h4>
-                    <div class="stat-number">KSh 45,200</div>
+                    <div class="stat-icon products">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Active Products</h3>
+                        <div class="stat-number">34</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rating">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Your Rating</h3>
+                        <div class="stat-number">4.8/5</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid -->
+            <div class="dashboard-main">
+                <!-- Left Column -->
+                <div class="dashboard-left">
+                    <!-- Stock Management -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-boxes"></i> Stock Management</h3>
+                            <button class="btn btn-outline btn-small" onclick="manageStock()">
+                                Bulk Update
+                            </button>
+                        </div>
+                        <div class="stock-management">
+                            <div class="stock-filters">
+                                <input type="text" placeholder="Search products..." id="stockSearch">
+                                <select id="categoryFilter">
+                                    <option value="">All Categories</option>
+                                    <option value="cleaning">Cleaning Supplies</option>
+                                    <option value="toiletries">Toiletries</option>
+                                    <option value="beverages">Beverages</option>
+                                </select>
+                            </div>
+                            <div class="stock-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Category</th>
+                                            <th>Current Stock</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Detergent 5L</td>
+                                            <td>Cleaning</td>
+                                            <td>
+                                                <input type="number" value="45" class="stock-input" onchange="updateStock(this, 'detergent')">
+                                            </td>
+                                            <td>KSh 850</td>
+                                            <td><span class="stock-status in-stock">In Stock</span></td>
+                                            <td>
+                                                <button class="btn-icon" onclick="editProduct('detergent')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Toilet Paper (12 rolls)</td>
+                                            <td>Toiletries</td>
+                                            <td>
+                                                <input type="number" value="12" class="stock-input" onchange="updateStock(this, 'toilet-paper')">
+                                            </td>
+                                            <td>KSh 1,200</td>
+                                            <td><span class="stock-status low-stock">Low Stock</span></td>
+                                            <td>
+                                                <button class="btn-icon" onclick="editProduct('toilet-paper')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Floor Cleaner 4L</td>
+                                            <td>Cleaning</td>
+                                            <td>
+                                                <input type="number" value="0" class="stock-input" onchange="updateStock(this, 'floor-cleaner')">
+                                            </td>
+                                            <td>KSh 720</td>
+                                            <td><span class="stock-status out-of-stock">Out of Stock</span></td>
+                                            <td>
+                                                <button class="btn-icon" onclick="editProduct('floor-cleaner')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Management -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tasks"></i> Order Management</h3>
+                            <div class="order-filters">
+                                <select id="orderStatusFilter" onchange="filterOrders()">
+                                    <option value="all">All Orders</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="orders-management">
+                            <div class="order-item detailed">
+                                <div class="order-header">
+                                    <div class="order-id">#ORD-00123</div>
+                                    <div class="order-hotel">Diani Resort Hotel</div>
+                                    <div class="order-date">Today, 10:30 AM</div>
+                                </div>
+                                <div class="order-details">
+                                    <div class="order-items">
+                                        <strong>Items:</strong> Detergent 5L (x2), Toilet Paper (x3)
+                                    </div>
+                                    <div class="order-total">
+                                        <strong>Total: KSh 15,400</strong>
+                                    </div>
+                                </div>
+                                <div class="order-actions">
+                                    <button class="btn btn-success btn-small" onclick="confirmOrder('ORD-00123')">
+                                        <i class="fas fa-check"></i> Confirm Order
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="viewOrder('ORD-00123')">
+                                        <i class="fas fa-eye"></i> Details
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="order-item detailed confirmed">
+                                <div class="order-header">
+                                    <div class="order-id">#ORD-00122</div>
+                                    <div class="order-hotel">Beachside Villas</div>
+                                    <div class="order-date">Yesterday, 3:15 PM</div>
+                                </div>
+                                <div class="order-details">
+                                    <div class="order-items">
+                                        <strong>Items:</strong> Floor Cleaner (x4), Bleach (x2)
+                                    </div>
+                                    <div class="order-total">
+                                        <strong>Total: KSh 8,200</strong>
+                                    </div>
+                                </div>
+                                <div class="order-status-badge">
+                                    <i class="fas fa-check-circle"></i> Confirmed
+                                </div>
+                                <div class="order-actions">
+                                    <button class="btn btn-primary btn-small" onclick="generateInvoice('ORD-00122')">
+                                        <i class="fas fa-receipt"></i> Generate Invoice
+                                    </button>
+                                    <button class="btn btn-outline btn-small" onclick="trackOrder('ORD-00122')">
+                                        <i class="fas fa-truck"></i> Track
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="dashboard-right">
+                    <!-- Quick Actions -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="addNewProduct()">
+                                <i class="fas fa-plus"></i>
+                                <span>Add Product</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="viewAnalytics()">
+                                <i class="fas fa-chart-line"></i>
+                                <span>View Analytics</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="manageInventory()">
+                                <i class="fas fa-boxes"></i>
+                                <span>Inventory</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="generateReports()">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Generate Reports</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- KRA Invoice Generator -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-receipt"></i> KRA Invoice Generator</h3>
+                        </div>
+                        <div class="invoice-generator">
+                            <p>Generate official KRA-compliant invoices for completed orders.</p>
+                            <div class="recent-invoices">
+                                <h4>Recent Invoices</h4>
+                                <div class="invoice-item">
+                                    <span>INV-00123 - KSh 15,400</span>
+                                    <button class="btn-icon" onclick="downloadInvoice('INV-00123')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                                <div class="invoice-item">
+                                    <span>INV-00122 - KSh 8,200</span>
+                                    <button class="btn-icon" onclick="downloadInvoice('INV-00122')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-full" onclick="createNewInvoice()">
+                                <i class="fas fa-plus"></i> Create New Invoice
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Performance</h3>
+                        </div>
+                        <div class="performance-metrics">
+                            <div class="metric">
+                                <label>Order Fulfillment Rate</label>
+                                <div class="metric-value">98%</div>
+                            </div>
+                            <div class="metric">
+                                <label>Average Response Time</label>
+                                <div class="metric-value">15 min</div>
+                            </div>
+                            <div class="metric">
+                                <label>Customer Rating</label>
+                                <div class="metric-value">4.8/5</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,6 +316,50 @@
 
     <script src="script.js"></script>
     <script>
+        // Supplier Dashboard functionality
+        function addNewProduct() {
+            alert('Add new product interface would open here');
+            // Redirect to product management page
+        }
+
+        function manageStock() {
+            alert('Bulk stock update interface would open here');
+        }
+
+        function updateStock(input, productId) {
+            const newStock = input.value;
+            console.log(`Updating stock for ${productId} to ${newStock}`);
+            // API call to update stock
+        }
+
+        function confirmOrder(orderId) {
+            if(confirm(`Confirm order ${orderId}? This will notify the hotel and begin processing.`)) {
+                alert(`Order ${orderId} confirmed!`);
+                // API call to confirm order
+            }
+        }
+
+        function generateInvoice(orderId) {
+            alert(`Generating KRA invoice for order ${orderId}`);
+            // Open invoice generator with pre-filled order details
+        }
+
+        function viewOrder(orderId) {
+            alert(`Viewing details for order ${orderId}`);
+        }
+
+        function trackOrder(orderId) {
+            alert(`Tracking order ${orderId}`);
+        }
+
+        function createNewInvoice() {
+            alert('Create new invoice interface would open here');
+        }
+
+        function downloadInvoice(invoiceId) {
+            alert(`Downloading invoice ${invoiceId}`);
+        }
+
         function logout() {
             if(confirm('Are you sure you want to logout?')) {
                 window.location.href = 'index.html';
