@@ -32,8 +32,8 @@
             <!-- Dashboard Header -->
             <div class="dashboard-header">
                 <div class="header-content">
-                    <h1>Hotel Dashboard</h1>
-                    <p>Welcome back! Manage your procurement needs efficiently.</p>
+                    <h1>Procurement Dashboard</h1>
+                    <p>Welcome back! Manage your hotel's supply needs efficiently.</p>
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-primary" onclick="openQuickOrder()">
@@ -86,49 +86,78 @@
             <div class="dashboard-main">
                 <!-- Left Column -->
                 <div class="dashboard-left">
-                    <!-- Stock Management -->
+                    <!-- Quick Order Panel -->
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3><i class="fas fa-boxes"></i> Stock Levels</h3>
-                            <button class="btn btn-outline btn-small" onclick="openStockManagement()">
-                                Manage Stocks
-                            </button>
+                            <h3><i class="fas fa-search"></i> Find & Order Supplies</h3>
                         </div>
-                        <div class="stock-categories">
-                            <div class="stock-category">
-                                <h4>Cleaning Supplies</h4>
-                                <div class="stock-items">
-                                    <div class="stock-item low">
-                                        <span>Detergent</span>
-                                        <span class="stock-level">Low (2 days)</span>
-                                    </div>
-                                    <div class="stock-item adequate">
-                                        <span>Bleach</span>
-                                        <span class="stock-level">Adequate (15 days)</span>
-                                    </div>
-                                    <div class="stock-item adequate">
-                                        <span>Floor Cleaner</span>
-                                        <span class="stock-level">Adequate (10 days)</span>
-                                    </div>
+                        <div class="search-order">
+                            <div class="search-box">
+                                <input type="text" id="supplySearch" placeholder="Search for items (e.g., detergent, toilet paper...)">
+                                <button class="btn btn-primary" onclick="searchSupplies()">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            
+                            <div class="quick-categories">
+                                <h4>Quick Categories:</h4>
+                                <div class="category-tags">
+                                    <span class="category-tag" onclick="searchCategory('cleaning')">Cleaning Supplies</span>
+                                    <span class="category-tag" onclick="searchCategory('toiletries')">Toiletries</span>
+                                    <span class="category-tag" onclick="searchCategory('beverages')">Beverages</span>
+                                    <span class="category-tag" onclick="searchCategory('food')">Food Items</span>
+                                    <span class="category-tag" onclick="searchCategory('linens')">Linens & Uniforms</span>
                                 </div>
                             </div>
-                            <div class="stock-category">
-                                <h4>Toiletries & Amenities</h4>
-                                <div class="stock-items">
-                                    <div class="stock-item critical">
-                                        <span>Toilet Paper</span>
-                                        <span class="stock-level">Critical (1 day)</span>
+
+                            <!-- Quick Order Form -->
+                            <div class="quick-order-form">
+                                <h4><i class="fas fa-shopping-cart"></i> Quick Order</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="itemName">Item Name</label>
+                                        <input type="text" id="itemName" placeholder="Enter item name">
                                     </div>
-                                    <div class="stock-item adequate">
-                                        <span>Soap</span>
-                                        <span class="stock-level">Adequate (20 days)</span>
-                                    </div>
-                                    <div class="stock-item low">
-                                        <span>Shampoo</span>
-                                        <span class="stock-level">Low (3 days)</span>
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <input type="number" id="quantity" placeholder="Qty" min="1">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="urgency">Urgency Level</label>
+                                    <select id="urgency">
+                                        <option value="normal">Normal (3-5 days)</option>
+                                        <option value="urgent">Urgent (1-2 days)</option>
+                                        <option value="emergency">Emergency (Same day)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary btn-full" onclick="addToCart()">
+                                    <i class="fas fa-cart-plus"></i> Add to Order List
+                                </button>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Order List -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list-alt"></i> Current Order List</h3>
+                            <span class="order-total">Total: KSh 0</span>
+                        </div>
+                        <div class="order-list" id="orderList">
+                            <div class="empty-order">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>Your order list is empty</p>
+                                <small>Add items from the search above to get started</small>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn btn-outline" onclick="clearOrderList()">
+                                <i class="fas fa-trash"></i> Clear List
+                            </button>
+                            <button class="btn btn-primary" onclick="placeOrder()">
+                                <i class="fas fa-paper-plane"></i> Place Order
+                            </button>
                         </div>
                     </div>
 
@@ -143,31 +172,43 @@
                                 <div class="order-info">
                                     <strong>#ORD-00123</strong>
                                     <span>Coastal Supplies Ltd</span>
+                                    <small>Today, 10:30 AM</small>
+                                </div>
+                                <div class="order-details">
+                                    <span>Detergent, Toilet Paper</span>
+                                    <strong>KSh 15,400</strong>
                                 </div>
                                 <div class="order-status confirmed">
                                     <i class="fas fa-check-circle"></i> Confirmed
                                 </div>
-                                <div class="order-amount">KSh 15,400</div>
                             </div>
                             <div class="order-item">
                                 <div class="order-info">
                                     <strong>#ORD-00124</strong>
                                     <span>Beachside Chemicals</span>
+                                    <small>Today, 09:15 AM</small>
+                                </div>
+                                <div class="order-details">
+                                    <span>Floor Cleaner, Bleach</span>
+                                    <strong>KSh 8,200</strong>
                                 </div>
                                 <div class="order-status pending">
                                     <i class="fas fa-clock"></i> Waiting Confirmation
                                 </div>
-                                <div class="order-amount">KSh 8,200</div>
                             </div>
                             <div class="order-item">
                                 <div class="order-info">
                                     <strong>#ORD-00125</strong>
                                     <span>Diani Beverages</span>
+                                    <small>Yesterday, 03:45 PM</small>
+                                </div>
+                                <div class="order-details">
+                                    <span>Soft Drinks, Water</span>
+                                    <strong>KSh 22,150</strong>
                                 </div>
                                 <div class="order-status delivered">
                                     <i class="fas fa-truck"></i> In Transit
                                 </div>
-                                <div class="order-amount">KSh 22,150</div>
                             </div>
                         </div>
                     </div>
@@ -175,32 +216,6 @@
 
                 <!-- Right Column -->
                 <div class="dashboard-right">
-                    <!-- Quick Search & Order -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-search"></i> Find & Order Supplies</h3>
-                        </div>
-                        <div class="search-order">
-                            <div class="search-box">
-                                <input type="text" id="supplySearch" placeholder="Search for items (e.g., detergent, toilet paper...)">
-                                <button class="btn btn-primary" onclick="searchSupplies()">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="quick-categories">
-                                <h4>Quick Categories:</h4>
-                                <div class="category-tags">
-                                    <span class="category-tag" onclick="searchCategory('cleaning')">Cleaning</span>
-                                    <span class="category-tag" onclick="searchCategory('toiletries')">Toiletries</span>
-                                    <span class="category-tag" onclick="searchCategory('beverages')">Beverages</span>
-                                    <span class="category-tag" onclick="searchCategory('food')">Food Items</span>
-                                    <span class="category-tag" onclick="searchCategory('linens')">Linens</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Recommended Suppliers -->
                     <div class="dashboard-card">
                         <div class="card-header">
@@ -216,6 +231,9 @@
                                     <div class="supplier-specialty">
                                         Cleaning & Toiletries
                                     </div>
+                                    <div class="supplier-delivery">
+                                        <i class="fas fa-shipping-fast"></i> Same day delivery
+                                    </div>
                                 </div>
                                 <button class="btn btn-outline btn-small" onclick="viewSupplier('coastal')">
                                     View Products
@@ -230,8 +248,28 @@
                                     <div class="supplier-specialty">
                                         Industrial Cleaning
                                     </div>
+                                    <div class="supplier-delivery">
+                                        <i class="fas fa-shipping-fast"></i> Next day delivery
+                                    </div>
                                 </div>
                                 <button class="btn btn-outline btn-small" onclick="viewSupplier('beachside')">
+                                    View Products
+                                </button>
+                            </div>
+                            <div class="supplier-card">
+                                <div class="supplier-info">
+                                    <h4>Diani Beverages Co.</h4>
+                                    <div class="supplier-rating">
+                                        <i class="fas fa-star"></i> 4.7 (67 reviews)
+                                    </div>
+                                    <div class="supplier-specialty">
+                                        Beverages & Bar Supplies
+                                    </div>
+                                    <div class="supplier-delivery">
+                                        <i class="fas fa-shipping-fast"></i> 2-hour delivery
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline btn-small" onclick="viewSupplier('diani-beverages')">
                                     View Products
                                 </button>
                             </div>
@@ -243,10 +281,68 @@
                         <div class="card-header">
                             <h3><i class="fas fa-bell"></i> Emergency Request</h3>
                         </div>
-                        <p>Need supplies urgently? Get priority service from verified suppliers.</p>
+                        <p>Need supplies urgently? Get priority service from verified suppliers with guaranteed same-day delivery.</p>
                         <button class="btn btn-emergency" onclick="openEmergencyOrder()">
                             <i class="fas fa-bolt"></i> Create Emergency Order
                         </button>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="openOrderHistory()">
+                                <i class="fas fa-history"></i>
+                                <span>Order History</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="openSupplierDirectory()">
+                                <i class="fas fa-address-book"></i>
+                                <span>Suppliers</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="openPaymentHistory()">
+                                <i class="fas fa-receipt"></i>
+                                <span>Payments</span>
+                            </button>
+                            <button class="quick-action-btn" onclick="openHotelProfile()">
+                                <i class="fas fa-hotel"></i>
+                                <span>Hotel Profile</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Order Tracking -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> Track Orders</h3>
+                        </div>
+                        <div class="tracking-list">
+                            <div class="tracking-item">
+                                <div class="tracking-info">
+                                    <strong>#ORD-00125</strong>
+                                    <span>Diani Beverages Co.</span>
+                                </div>
+                                <div class="tracking-status">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 75%"></div>
+                                    </div>
+                                    <span class="status-text">In Transit - 75%</span>
+                                </div>
+                            </div>
+                            <div class="tracking-item">
+                                <div class="tracking-info">
+                                    <strong>#ORD-00124</strong>
+                                    <span>Beachside Chemicals</span>
+                                </div>
+                                <div class="tracking-status">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 25%"></div>
+                                    </div>
+                                    <span class="status-text">Processing - 25%</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,14 +365,11 @@
     <script src="script.js"></script>
     <script>
         // Dashboard functionality
-        function openQuickOrder() {
-            alert('Quick order feature would open here');
-            // Implementation for quick emergency orders
-        }
+        let orderItems = [];
+        let orderTotal = 0;
 
-        function openStockManagement() {
-            alert('Stock management interface would open here');
-            // Redirect to stock management page
+        function openQuickOrder() {
+            alert('Quick emergency order feature would open here');
         }
 
         function searchSupplies() {
@@ -300,6 +393,115 @@
             alert('Emergency order interface would open here with priority suppliers');
         }
 
+        function addToCart() {
+            const itemName = document.getElementById('itemName').value;
+            const quantity = document.getElementById('quantity').value;
+            const urgency = document.getElementById('urgency').value;
+
+            if (!itemName || !quantity) {
+                alert('Please enter both item name and quantity');
+                return;
+            }
+
+            // Add item to order list
+            const item = {
+                name: itemName,
+                quantity: parseInt(quantity),
+                urgency: urgency,
+                price: Math.floor(Math.random() * 1000) + 100 // Mock price
+            };
+
+            orderItems.push(item);
+            orderTotal += item.price * item.quantity;
+            updateOrderList();
+            
+            // Clear form
+            document.getElementById('itemName').value = '';
+            document.getElementById('quantity').value = '';
+        }
+
+        function updateOrderList() {
+            const orderList = document.getElementById('orderList');
+            const orderTotalElement = document.querySelector('.order-total');
+
+            if (orderItems.length === 0) {
+                orderList.innerHTML = `
+                    <div class="empty-order">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your order list is empty</p>
+                        <small>Add items from the search above to get started</small>
+                    </div>
+                `;
+                orderTotalElement.textContent = 'Total: KSh 0';
+                return;
+            }
+
+            orderList.innerHTML = orderItems.map((item, index) => `
+                <div class="order-list-item">
+                    <div class="item-info">
+                        <strong>${item.name}</strong>
+                        <span>Qty: ${item.quantity}</span>
+                        <span class="urgency ${item.urgency}">${item.urgency}</span>
+                    </div>
+                    <div class="item-actions">
+                        <span class="item-price">KSh ${(item.price * item.quantity).toLocaleString()}</span>
+                        <button class="btn-icon" onclick="removeFromCart(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            orderTotalElement.textContent = `Total: KSh ${orderTotal.toLocaleString()}`;
+        }
+
+        function removeFromCart(index) {
+            orderTotal -= orderItems[index].price * orderItems[index].quantity;
+            orderItems.splice(index, 1);
+            updateOrderList();
+        }
+
+        function clearOrderList() {
+            if (orderItems.length === 0) return;
+            
+            if (confirm('Are you sure you want to clear your order list?')) {
+                orderItems = [];
+                orderTotal = 0;
+                updateOrderList();
+            }
+        }
+
+        function placeOrder() {
+            if (orderItems.length === 0) {
+                alert('Your order list is empty. Add some items first.');
+                return;
+            }
+
+            alert(`Order placed successfully!\n\nItems: ${orderItems.length}\nTotal: KSh ${orderTotal.toLocaleString()}\n\nThis would be sent to suppliers for confirmation.`);
+            
+            // Reset order
+            orderItems = [];
+            orderTotal = 0;
+            updateOrderList();
+        }
+
+        // Quick action functions
+        function openOrderHistory() {
+            alert('Opening order history...');
+        }
+
+        function openSupplierDirectory() {
+            alert('Opening supplier directory...');
+        }
+
+        function openPaymentHistory() {
+            alert('Opening payment history...');
+        }
+
+        function openHotelProfile() {
+            alert('Opening hotel profile...');
+        }
+
         function logout() {
             if(confirm('Are you sure you want to logout?')) {
                 window.location.href = 'index.html';
@@ -314,6 +516,9 @@
         function closeModal() {
             document.getElementById('orderModal').style.display = 'none';
         }
+
+        // Initialize
+        updateOrderList();
     </script>
 </body>
 </html>
