@@ -172,6 +172,16 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-large {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}
+
+.btn-small {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
 .hero-stats {
     display: flex;
     gap: 2rem;
@@ -834,6 +844,326 @@ body {
     color: #F59E0B;
 }
 
+/* ==========================================================================
+   AUTHENTICATION PAGES STYLES
+   ========================================================================== */
+
+/* Authentication Pages */
+.auth-section {
+    padding: 120px 0 80px;
+    background: #F8FAFC;
+    min-height: 100vh;
+}
+
+.auth-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+    color: #1E293B;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.auth-header p {
+    color: #64748B;
+    font-size: 1.1rem;
+}
+
+.auth-form {
+    margin-bottom: 2rem;
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section h3 {
+    color: #1E293B;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-section h3 i {
+    color: #DE2910;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #DE2910;
+    box-shadow: 0 0 0 3px rgba(222, 41, 16, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-top: 0.25rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: normal;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.category-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Plan Selection */
+.plan-selection {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: #F8FAFC;
+    border-radius: 10px;
+}
+
+.plan-selection h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #1E293B;
+}
+
+.plan-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.plan-card {
+    position: relative;
+}
+
+.plan-card input[type="radio"] {
+    display: none;
+}
+
+.plan-card label {
+    display: block;
+    padding: 1.5rem;
+    background: white;
+    border: 2px solid #E2E8F0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.plan-card input[type="radio"]:checked + label {
+    border-color: #DE2910;
+    background: #FEF2F2;
+}
+
+.plan-card.featured label {
+    border-color: #DE2910;
+}
+
+.plan-card h4 {
+    color: #1E293B;
+    margin-bottom: 0.5rem;
+}
+
+.plan-card .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1E293B;
+    margin-bottom: 1rem;
+}
+
+.plan-card .price span {
+    font-size: 0.875rem;
+    color: #64748B;
+    font-weight: normal;
+}
+
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-card li {
+    padding: 0.25rem 0;
+    color: #64748B;
+    font-size: 0.875rem;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #DE2910;
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Payment Summary */
+.payment-summary {
+    background: #F8FAFC;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.payment-summary h4 {
+    margin-bottom: 1rem;
+    color: #1E293B;
+}
+
+.payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.payment-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.payment-line.total {
+    border-top: 1px solid #D1D5DB;
+    font-weight: bold;
+    color: #1E293B;
+}
+
+/* Password Options */
+.password-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.forgot-password {
+    color: #DE2910;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Demo Credentials */
+.demo-credentials {
+    background: #F0F9FF;
+    border: 1px solid #BAE6FD;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.demo-credentials h4 {
+    color: #0369A1;
+    margin-bottom: 1rem;
+}
+
+.demo-credentials p {
+    color: #64748B;
+    margin-bottom: 0.5rem;
+}
+
+.demo-credentials code {
+    background: #E0F2FE;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+/* Auth Footer */
+.auth-footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #E2E8F0;
+}
+
+.auth-footer p {
+    color: #64748B;
+    margin-bottom: 0.5rem;
+}
+
+.auth-footer a {
+    color: #DE2910;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -897,5 +1227,25 @@ body {
     
     .steps {
         grid-template-columns: 1fr;
+    }
+    
+    /* Auth Responsive */
+    .auth-container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .plan-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .password-options {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
     }
 }
