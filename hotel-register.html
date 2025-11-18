@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Hotel - SWISTO</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="swisto-logo.png" alt="SWISTO Kenya">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="hotel-login.html" class="nav-link">Hotel Login</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hotel Registration Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Register Your Hotel</h1>
+                    <p>Join SWISTO's network of premium hospitality partners</p>
+                </div>
+
+                <form class="auth-form" id="hotelRegisterForm">
+                    <!-- Hotel Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-hotel"></i> Hotel Information</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hotelName">Hotel Name *</label>
+                                <input type="text" id="hotelName" name="hotelName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hotelCategory">Hotel Category *</label>
+                                <select id="hotelCategory" name="hotelCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="5-star">5-Star</option>
+                                    <option value="4-star">4-Star</option>
+                                    <option value="3-star">3-Star</option>
+                                    <option value="boutique">Boutique Hotel</option>
+                                    <option value="resort">Beach Resort</option>
+                                    <option value="lodge">Lodge</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hotelAddress">Physical Address *</label>
+                            <input type="text" id="hotelAddress" name="hotelAddress" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="county">County *</label>
+                                <select id="county" name="county" required>
+                                    <option value="">Select County</option>
+                                    <option value="kwale">Kwale</option>
+                                    <option value="mombasa">Mombasa</option>
+                                    <option value="kilifi">Kilifi</option>
+                                    <option value="nairobi">Nairobi</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Specific Location/Area *</label>
+                                <input type="text" id="location" name="location" placeholder="e.g., Diani Beach, Nyali, Westlands" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="rooms">Number of Rooms</label>
+                                <input type="number" id="rooms" name="rooms" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="website">Website (Optional)</label>
+                                <input type="url" id="website" name="website" placeholder="https://">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Contact Person -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-tie"></i> Primary Contact Person</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Full Name *</label>
+                                <input type="text" id="contactName" name="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="position">Position/Title *</label>
+                                <select id="position" name="position" required>
+                                    <option value="">Select Position</option>
+                                    <option value="procurement">Procurement Manager</option>
+                                    <option value="chief-engineer">Chief Engineer</option>
+                                    <option value="general-manager">General Manager</option>
+                                    <option value="store-manager">Store Manager</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address *</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhone">Phone Number *</label>
+                                <input type="tel" id="contactPhone" name="contactPhone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="department">Department *</label>
+                            <input type="text" id="department" name="department" required>
+                        </div>
+                    </div>
+
+                    <!-- Emergency & Delivery Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-truck"></i> Delivery Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="deliveryInstructions">Delivery Instructions</label>
+                            <textarea id="deliveryInstructions" name="deliveryInstructions" rows="3" placeholder="Specific gate, loading bay instructions, security protocols..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deliveryHours">Preferred Delivery Hours</label>
+                                <input type="text" id="deliveryHours" name="deliveryHours" placeholder="e.g., 8:00 AM - 5:00 PM">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyContact">24/7 Emergency Contact</label>
+                                <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Alternative emergency number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Verification -->
+                    <div class="form-section">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <label for="agreeTerms">
+                                I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a> *
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="confirmAuthority" name="confirmAuthority" required>
+                            <label for="confirmAuthority">
+                                I confirm that I have the authority to represent this hotel and make procurement decisions *
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="verificationDocs">Business Registration/License (Upload)</label>
+                            <input type="file" id="verificationDocs" name="verificationDocs" accept=".pdf,.jpg,.png">
+                            <small>Upload your business registration certificate or hotel license (PDF, JPG, PNG)</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-hotel"></i> Register Hotel
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="hotel-login.html">Login to your hotel account</a></p>
+                    <p>Are you a supplier? <a href="supplier-register.html">Join as a supplier instead</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('hotelRegisterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send to your backend
+            console.log('Hotel Registration Data:', data);
+            
+            // Show success message
+            alert('Thank you! Your hotel registration has been submitted for verification. We will contact you within 24 hours.');
+            this.reset();
+        });
+
+        // Auto-detect location if possible
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // In a real app, you'd reverse geocode here
+                console.log('Location detected:', position.coords);
+            });
+        }
+    </script>
+</body>
+</html>
