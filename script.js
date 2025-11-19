@@ -1,14 +1,22 @@
-// Mobile Navigation Toggle
+// Mobile menu toggle
 const mobileMenu = document.getElementById('mobile-menu');
 const navMenu = document.querySelector('.nav-menu');
 
 if (mobileMenu) {
     mobileMenu.addEventListener('click', function() {
-        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        const isVisible = navMenu.style.display === 'flex';
+        navMenu.style.display = isVisible ? 'none' : 'flex';
     });
 }
 
-// Smooth Scrolling
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.nav-container') && window.innerWidth <= 768) {
+        navMenu.style.display = 'none';
+    }
+});
+
+// Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -20,38 +28,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
-});
-
-// Tab Functionality
-function showTab(tab) {
-    document.getElementById('hotel-tab').style.display = tab === 'hotel' ? 'block' : 'none';
-    document.getElementById('supplier-tab').style.display = tab === 'supplier' ? 'block' : 'none';
-    
-    // Update button styles
-    document.getElementById('hotel-tab-btn').classList.toggle('btn-primary', tab === 'hotel');
-    document.getElementById('hotel-tab-btn').classList.toggle('btn-outline', tab !== 'hotel');
-    document.getElementById('supplier-tab-btn').classList.toggle('btn-primary', tab === 'supplier');
-    document.getElementById('supplier-tab-btn').classList.toggle('btn-outline', tab !== 'supplier');
-}
-
-// Contact Form
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Thank you for your message! We will contact you shortly.');
-        this.reset();
-    });
-}
-
-// Navbar background on scroll
-window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.backdropFilter = 'blur(10px)';
-    } else {
-        navbar.style.background = '#fff';
-        navbar.style.backdropFilter = 'none';
-    }
 });
