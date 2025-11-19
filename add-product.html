@@ -597,48 +597,62 @@
         }
 
         // Form Submission
-        productForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show loading state
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Adding Product...';
-            submitBtn.classList.add('btn-loading');
-            submitBtn.disabled = true;
+productForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Show loading state
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Adding Product...';
+    submitBtn.classList.add('btn-loading');
+    submitBtn.disabled = true;
 
-            // Simulate API call
-            setTimeout(() => {
-                // Get form data
-                const formData = new FormData(productForm);
-                const productData = {
-                    name: formData.get('productName'),
-                    sku: formData.get('productSku'),
-                    category: formData.get('productCategory'),
-                    brand: formData.get('productBrand'),
-                    description: formData.get('productDescription'),
-                    unitPrice: parseFloat(formData.get('unitPrice')),
-                    bulkPrice: formData.get('bulkPrice') ? parseFloat(formData.get('bulkPrice')) : null,
-                    bulkQuantity: formData.get('bulkQuantity') ? parseInt(formData.get('bulkQuantity')) : null,
-                    unit: formData.get('productUnit'),
-                    unitsPerPackage: formData.get('unitsPerPackage') ? parseInt(formData.get('unitsPerPackage')) : 1,
-                    initialStock: parseInt(formData.get('initialStock')),
-                    reorderLevel: parseInt(formData.get('reorderLevel')),
-                    safetyStock: formData.get('safetyStock') ? parseInt(formData.get('safetyStock')) : 0,
-                    images: uploadedImages
-                };
+    // Get form data
+    const formData = new FormData(productForm);
+    const productData = {
+        id: Date.now(), // Generate unique ID
+        name: formData.get('productName'),
+        sku: formData.get('productSku'),
+        category: formData.get('productCategory'),
+        brand: formData.get('productBrand'),
+        description: formData.get('productDescription'),
+        unitPrice: parseFloat(formData.get('unitPrice')),
+        bulkPrice: formData.get('bulkPrice') ? parseFloat(formData.get('bulkPrice')) : null,
+        bulkQuantity: formData.get('bulkQuantity') ? parseInt(formData.get('bulkQuantity')) : null,
+        unit: formData.get('productUnit'),
+        unitsPerPackage: formData.get('unitsPerPackage') ? parseInt(formData.get('unitsPerPackage')) : 1,
+        currentStock: parseInt(formData.get('initialStock')),
+        reorderLevel: parseInt(formData.get('reorderLevel')),
+        safetyStock: formData.get('safetyStock') ? parseInt(formData.get('safetyStock')) : 0,
+        status: 'in-stock',
+        images: uploadedImages,
+        createdAt: new Date().toISOString()
+    };
 
-                console.log('Product Data:', productData);
-                
-                // Show success message
-                showNotification('Product added successfully!', 'success');
-                
-                // Redirect back to dashboard after delay
-                setTimeout(() => {
-                    window.location.href = 'supplier-dashboard.html';
-                }, 2000);
-                
-            }, 2000);
-        });
+    // Save to localStorage
+    saveProductToStorage(productData);
+    
+    // Show success message
+    showNotification('Product added successfully!', 'success');
+    
+    // Redirect back to dashboard after delay
+    setTimeout(() => {
+        window.location.href = 'supplier-dashboard.html';
+    }, 2000);
+});
+
+function saveProductToStorage(productData) {
+    // Get existing products from localStorage
+    const existingProducts = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+    
+    // Add new product
+    existingProducts.push(productData);
+    
+    // Save back to localStorage
+    localStorage.setItem('supplierProducts', JSON.stringify(existingProducts));
+    
+    console.log('Product saved:', productData);
+    console.log('Total products:', existingProducts.length);
+}
 
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
@@ -664,4 +678,5 @@
         });
     </script>
 </body>
+
 </html>
