@@ -133,9 +133,9 @@
         }
 
         .status-pending { background: #FEF3C7; color: #92400E; }
-        .status-confirmed { background: #DCFCE7; color: #166534; }
-        .status-processing { background: #DBEAFE; color: #1E40AF; }
-        .status-shipped { background: #E0E7FF; color: #3730A3; }
+        .status-confirmed { background: #DBEAFE; color: #1E40AF; }
+        .status-processing { background: #DDD6FE; color: #5B21B6; }
+        .status-shipped { background: #FCE7F3; color: #9D174D; }
         .status-delivered { background: #D1FAE5; color: #065F46; }
         .status-cancelled { background: #FEE2E2; color: #991B1B; }
 
@@ -154,13 +154,62 @@
             display: flex;
             align-items: center;
             gap: 0.25rem;
+            transition: all 0.3s ease;
         }
 
-        .btn-confirm { background: var(--secondary); color: white; }
-        .btn-process { background: var(--primary); color: white; }
-        .btn-ship { background: #3B82F6; color: white; }
-        .btn-complete { background: #10B981; color: white; }
-        .btn-view { background: #6B7280; color: white; }
+        .btn-confirm { 
+            background: var(--secondary); 
+            color: white; 
+        }
+        .btn-confirm:hover { 
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-process { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .btn-process:hover { 
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-ship { 
+            background: #7C3AED; 
+            color: white; 
+        }
+        .btn-ship:hover { 
+            background: #6D28D9;
+            transform: translateY(-1px);
+        }
+
+        .btn-complete { 
+            background: #10B981; 
+            color: white; 
+        }
+        .btn-complete:hover { 
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-track { 
+            background: #3B82F6; 
+            color: white; 
+        }
+        .btn-track:hover { 
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        .btn-view { 
+            background: #6B7280; 
+            color: white; 
+        }
+        .btn-view:hover { 
+            background: #4B5563;
+            transform: translateY(-1px);
+        }
 
         .empty-state {
             text-align: center;
@@ -174,7 +223,8 @@
             color: #9CA3AF;
         }
 
-        .order-details-modal {
+        /* Order Tracking Modal */
+        .order-tracking-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -187,13 +237,108 @@
             justify-content: center;
         }
 
-        .order-details-content {
+        .order-tracking-content {
             background: white;
             border-radius: 15px;
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+        }
+
+        .tracking-timeline {
+            padding: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: -2rem;
+            width: 2px;
+            background: #E5E7EB;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+
+        .timeline-icon.pending { background: #FEF3C7; color: #92400E; }
+        .timeline-icon.confirmed { background: #DBEAFE; color: #1E40AF; }
+        .timeline-icon.processing { background: #DDD6FE; color: #5B21B6; }
+        .timeline-icon.shipped { background: #FCE7F3; color: #9D174D; }
+        .timeline-icon.delivered { background: #D1FAE5; color: #065F46; }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 0.25rem 0;
+            color: #1E293B;
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        .timeline-time {
+            color: #94A3B8;
+            font-size: 0.8rem;
+        }
+
+        .tracking-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        /* Confirmation Modal */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirmation-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
         }
     </style>
 </head>
@@ -230,7 +375,7 @@
                 <span>Orders Management</span>
             </div>
             <h1 style="color: #1E293B; margin-bottom: 0.5rem;">Orders Management</h1>
-            <p style="color: #64748B;">View and process orders from hotels</p>
+            <p style="color: #64748B;">Confirm, process, and track hotel orders</p>
         </div>
     </section>
 
@@ -242,11 +387,11 @@
                 <div class="orders-stats">
                     <div class="order-stat-card">
                         <span class="order-stat-number" id="pendingOrders">0</span>
-                        <span class="order-stat-label">Pending Orders</span>
+                        <span class="order-stat-label">Pending Confirmation</span>
                     </div>
                     <div class="order-stat-card">
                         <span class="order-stat-number" id="todayOrders">0</span>
-                        <span class="order-stat-label">Today's Orders</span>
+                        <span class="order-stat-label">Today's Deliveries</span>
                     </div>
                     <div class="order-stat-card">
                         <span class="order-stat-number" id="urgentOrders">0</span>
@@ -333,25 +478,53 @@
         </div>
     </section>
 
-    <!-- Order Details Modal -->
-    <div id="orderDetailsModal" class="order-details-modal">
-        <div class="order-details-content">
+    <!-- Order Tracking Modal -->
+    <div id="orderTrackingModal" class="order-tracking-modal">
+        <div class="order-tracking-content">
             <div class="modal-header" style="padding: 2rem 2rem 1rem; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center;">
                 <h2 style="color: #1E293B; margin: 0; display: flex; align-items: center; gap: 0.75rem;">
-                    <i class="fas fa-file-invoice" style="color: var(--primary);"></i> Order Details
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> Order Tracking
                 </h2>
-                <button class="btn-icon" onclick="closeOrderDetails()" style="background: none; border: none; font-size: 1.5rem; color: #64748B; cursor: pointer;">
+                <button class="btn-icon" onclick="closeTrackingModal()" style="background: none; border: none; font-size: 1.5rem; color: #64748B; cursor: pointer;">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body" style="padding: 2rem;" id="orderDetailsContent">
-                <!-- Order details will be loaded here -->
+            <div class="tracking-timeline" id="trackingTimeline">
+                <!-- Tracking timeline will be loaded here -->
+            </div>
+            <div class="tracking-actions">
+                <button class="btn btn-outline" onclick="closeTrackingModal()">
+                    Close
+                </button>
+                <button class="btn btn-primary" id="nextTrackingAction">
+                    <!-- Next action button will be set dynamically -->
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="confirmation-content">
+            <h3 style="color: #1E293B; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--secondary);"></i> Confirm Order
+            </h3>
+            <p style="color: #64748B; margin-bottom: 1.5rem;" id="confirmationMessage">
+                Are you sure you want to confirm this order?
+            </p>
+            <div class="confirmation-actions">
+                <button class="btn btn-outline" onclick="closeConfirmationModal()">
+                    Cancel
+                </button>
+                <button class="btn btn-primary" id="confirmActionButton">
+                    Confirm
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample orders data
+        // Enhanced orders data with tracking history
         const sampleOrders = [
             {
                 id: 'ORD-001',
@@ -367,7 +540,10 @@
                 urgency: 'high',
                 status: 'pending',
                 notes: 'Please deliver before 10 AM',
-                contact: 'John Doe - 0712 345 678'
+                contact: 'John Doe - 0712 345 678',
+                tracking: [
+                    { status: 'pending', message: 'Order received from hotel', timestamp: '2024-01-15T08:30:00' }
+                ]
             },
             {
                 id: 'ORD-002',
@@ -383,7 +559,11 @@
                 urgency: 'normal',
                 status: 'confirmed',
                 notes: 'Ground floor reception',
-                contact: 'Jane Smith - 0733 444 555'
+                contact: 'Jane Smith - 0733 444 555',
+                tracking: [
+                    { status: 'pending', message: 'Order received from hotel', timestamp: '2024-01-15T09:15:00' },
+                    { status: 'confirmed', message: 'Order confirmed by supplier', timestamp: '2024-01-15T10:30:00' }
+                ]
             },
             {
                 id: 'ORD-003',
@@ -400,9 +580,16 @@
                 urgency: 'emergency',
                 status: 'processing',
                 notes: 'URGENT: Out of stock items',
-                contact: 'Mike Johnson - 0722 111 222'
+                contact: 'Mike Johnson - 0722 111 222',
+                tracking: [
+                    { status: 'pending', message: 'Order received from hotel', timestamp: '2024-01-14T14:20:00' },
+                    { status: 'confirmed', message: 'Order confirmed by supplier', timestamp: '2024-01-14T14:45:00' },
+                    { status: 'processing', message: 'Items being prepared for dispatch', timestamp: '2024-01-15T08:00:00' }
+                ]
             }
         ];
+
+        let currentOrderId = null;
 
         // Load orders from localStorage or use sample data
         function loadOrders() {
@@ -467,8 +654,8 @@
                     </td>
                     <td>
                         <div class="order-actions">
-                            <button class="btn-action btn-view" onclick="viewOrderDetails('${order.id}')">
-                                <i class="fas fa-eye"></i> View
+                            <button class="btn-action btn-track" onclick="trackOrder('${order.id}')">
+                                <i class="fas fa-map-marker-alt"></i> Track
                             </button>
                             ${getActionButton(order.status, order.id)}
                         </div>
@@ -482,24 +669,60 @@
         function getActionButton(status, orderId) {
             switch(status) {
                 case 'pending':
-                    return `<button class="btn-action btn-confirm" onclick="updateOrderStatus('${orderId}', 'confirmed')">
+                    return `<button class="btn-action btn-confirm" onclick="confirmOrder('${orderId}')">
                                 <i class="fas fa-check"></i> Confirm
                             </button>`;
                 case 'confirmed':
-                    return `<button class="btn-action btn-process" onclick="updateOrderStatus('${orderId}', 'processing')">
+                    return `<button class="btn-action btn-process" onclick="processOrder('${orderId}')">
                                 <i class="fas fa-cog"></i> Process
                             </button>`;
                 case 'processing':
-                    return `<button class="btn-action btn-ship" onclick="updateOrderStatus('${orderId}', 'shipped')">
+                    return `<button class="btn-action btn-ship" onclick="shipOrder('${orderId}')">
                                 <i class="fas fa-shipping-fast"></i> Ship
                             </button>`;
                 case 'shipped':
-                    return `<button class="btn-action btn-complete" onclick="updateOrderStatus('${orderId}', 'delivered')">
+                    return `<button class="btn-action btn-complete" onclick="completeOrder('${orderId}')">
                                 <i class="fas fa-check-circle"></i> Complete
                             </button>`;
                 default:
                     return '';
             }
+        }
+
+        function confirmOrder(orderId) {
+            currentOrderId = orderId;
+            const order = getOrderById(orderId);
+            document.getElementById('confirmationMessage').textContent = 
+                `Confirm order ${orderId} from ${order.hotel}? This will notify the hotel that their order has been received and will be processed.`;
+            document.getElementById('confirmActionButton').onclick = () => updateOrderStatus(orderId, 'confirmed');
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        function processOrder(orderId) {
+            currentOrderId = orderId;
+            const order = getOrderById(orderId);
+            document.getElementById('confirmationMessage').textContent = 
+                `Mark order ${orderId} as processing? This indicates items are being prepared for dispatch.`;
+            document.getElementById('confirmActionButton').onclick = () => updateOrderStatus(orderId, 'processing');
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        function shipOrder(orderId) {
+            currentOrderId = orderId;
+            const order = getOrderById(orderId);
+            document.getElementById('confirmationMessage').textContent = 
+                `Mark order ${orderId} as shipped? This will notify the hotel that their order is on the way.`;
+            document.getElementById('confirmActionButton').onclick = () => updateOrderStatus(orderId, 'shipped');
+            document.getElementById('confirmationModal').style.display = 'flex';
+        }
+
+        function completeOrder(orderId) {
+            currentOrderId = orderId;
+            const order = getOrderById(orderId);
+            document.getElementById('confirmationMessage').textContent = 
+                `Mark order ${orderId} as delivered? This will complete the order and notify the hotel.`;
+            document.getElementById('confirmActionButton').onclick = () => updateOrderStatus(orderId, 'delivered');
+            document.getElementById('confirmationModal').style.display = 'flex';
         }
 
         function updateOrderStatus(orderId, newStatus) {
@@ -508,99 +731,127 @@
             
             if (orderIndex !== -1) {
                 orders[orderIndex].status = newStatus;
+                
+                // Add tracking entry
+                const trackingMessage = getTrackingMessage(newStatus);
+                orders[orderIndex].tracking.push({
+                    status: newStatus,
+                    message: trackingMessage,
+                    timestamp: new Date().toISOString()
+                });
+                
                 localStorage.setItem('supplierOrders', JSON.stringify(orders));
+                closeConfirmationModal();
                 
                 // Reapply filters and refresh display
                 applyFilters();
-                alert(`Order ${orderId} status updated to ${newStatus}`);
+                
+                // Show success message
+                alert(`Order ${orderId} status updated to ${newStatus}. Hotel has been notified.`);
             }
         }
 
-        function viewOrderDetails(orderId) {
-            const orders = loadOrders();
-            const order = orders.find(order => order.id === orderId);
+        function getTrackingMessage(status) {
+            const messages = {
+                'confirmed': 'Order confirmed by supplier',
+                'processing': 'Items being prepared for dispatch',
+                'shipped': 'Order shipped and in transit',
+                'delivered': 'Order delivered successfully'
+            };
+            return messages[status] || 'Status updated';
+        }
+
+        function trackOrder(orderId) {
+            const order = getOrderById(orderId);
+            if (!order) return;
             
-            if (order) {
-                const modalContent = document.getElementById('orderDetailsContent');
-                modalContent.innerHTML = `
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div>
-                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Order Information</h4>
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <div><strong>Order ID:</strong> ${order.id}</div>
-                                <div><strong>Hotel:</strong> ${order.hotel}</div>
-                                <div><strong>Contact:</strong> ${order.contact}</div>
-                                <div><strong>Order Date:</strong> ${formatDate(order.orderDate)}</div>
-                                <div><strong>Delivery Date:</strong> ${formatDate(order.deliveryDate)}</div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 style="color: #1E293B; margin-bottom: 1rem;">Status & Urgency</h4>
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <div>
-                                    <strong>Status:</strong> 
-                                    <span class="order-status status-${order.status}">
-                                        ${order.status.toUpperCase()}
-                                    </span>
-                                </div>
-                                <div>
-                                    <strong>Urgency:</strong> 
-                                    <span class="order-urgency urgency-${order.urgency}">
-                                        ${order.urgency.toUpperCase()}
-                                    </span>
-                                </div>
-                                <div><strong>Total Amount:</strong> KES ${order.totalAmount.toLocaleString()}</div>
-                            </div>
-                        </div>
+            const timeline = document.getElementById('trackingTimeline');
+            timeline.innerHTML = '';
+            
+            // Add tracking steps
+            order.tracking.forEach((track, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                
+                timelineItem.innerHTML = `
+                    <div class="timeline-icon ${track.status}">
+                        <i class="${getTrackingIcon(track.status)}"></i>
                     </div>
-                    
-                    <div style="margin-bottom: 2rem;">
-                        <h4 style="color: #1E293B; margin-bottom: 1rem;">Order Items</h4>
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="background: #F8FAFC;">
-                                    <th style="padding: 0.75rem; text-align: left;">Product</th>
-                                    <th style="padding: 0.75rem; text-align: center;">Quantity</th>
-                                    <th style="padding: 0.75rem; text-align: right;">Unit Price</th>
-                                    <th style="padding: 0.75rem; text-align: right;">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${order.items.map(item => `
-                                    <tr>
-                                        <td style="padding: 0.75rem; border-bottom: 1px solid #F1F5F9;">${item.name}</td>
-                                        <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #F1F5F9;">${item.quantity} ${item.unit}</td>
-                                        <td style="padding: 0.75rem; text-align: right; border-bottom: 1px solid #F1F5F9;">KES ${item.price}</td>
-                                        <td style="padding: 0.75rem; text-align: right; border-bottom: 1px solid #F1F5F9;">KES ${(item.quantity * item.price).toLocaleString()}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    ${order.notes ? `
-                    <div style="margin-bottom: 2rem;">
-                        <h4 style="color: #1E293B; margin-bottom: 1rem;">Special Instructions</h4>
-                        <div style="background: #F8FAFC; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent);">
-                            ${order.notes}
-                        </div>
-                    </div>
-                    ` : ''}
-                    
-                    <div class="form-actions" style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 2rem; border-top: 1px solid #E2E8F0;">
-                        <button class="btn btn-outline" onclick="closeOrderDetails()">
-                            Close
-                        </button>
-                        ${getActionButton(order.status, order.id)}
+                    <div class="timeline-content">
+                        <h4>${getTrackingTitle(track.status)}</h4>
+                        <p>${track.message}</p>
+                        <div class="timeline-time">${formatDateTime(track.timestamp)}</div>
                     </div>
                 `;
                 
-                document.getElementById('orderDetailsModal').style.display = 'flex';
+                timeline.appendChild(timelineItem);
+            });
+            
+            // Set next action button
+            const nextActionButton = document.getElementById('nextTrackingAction');
+            nextActionButton.textContent = getNextActionText(order.status);
+            nextActionButton.onclick = () => performNextAction(orderId, order.status);
+            
+            document.getElementById('orderTrackingModal').style.display = 'flex';
+        }
+
+        function getTrackingIcon(status) {
+            const icons = {
+                'pending': 'fas fa-clock',
+                'confirmed': 'fas fa-check-circle',
+                'processing': 'fas fa-cog',
+                'shipped': 'fas fa-shipping-fast',
+                'delivered': 'fas fa-check-double'
+            };
+            return icons[status] || 'fas fa-info-circle';
+        }
+
+        function getTrackingTitle(status) {
+            const titles = {
+                'pending': 'Order Received',
+                'confirmed': 'Order Confirmed',
+                'processing': 'Processing Order',
+                'shipped': 'Order Shipped',
+                'delivered': 'Order Delivered'
+            };
+            return titles[status] || 'Status Update';
+        }
+
+        function getNextActionText(status) {
+            const actions = {
+                'pending': 'Confirm Order',
+                'confirmed': 'Process Order',
+                'processing': 'Ship Order',
+                'shipped': 'Mark as Delivered',
+                'delivered': 'Order Completed'
+            };
+            return actions[status] || 'Update Status';
+        }
+
+        function performNextAction(orderId, currentStatus) {
+            closeTrackingModal();
+            
+            switch(currentStatus) {
+                case 'pending': confirmOrder(orderId); break;
+                case 'confirmed': processOrder(orderId); break;
+                case 'processing': shipOrder(orderId); break;
+                case 'shipped': completeOrder(orderId); break;
+                default: alert('Order completed'); break;
             }
         }
 
-        function closeOrderDetails() {
-            document.getElementById('orderDetailsModal').style.display = 'none';
+        function getOrderById(orderId) {
+            const orders = loadOrders();
+            return orders.find(order => order.id === orderId);
+        }
+
+        function closeTrackingModal() {
+            document.getElementById('orderTrackingModal').style.display = 'none';
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+            currentOrderId = null;
         }
 
         function formatDate(dateString) {
@@ -612,12 +863,22 @@
             });
         }
 
+        function formatDateTime(dateTimeString) {
+            const date = new Date(dateTimeString);
+            return date.toLocaleString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
         function updateStats(orders) {
             const today = new Date().toDateString();
             
             const pendingOrders = orders.filter(order => order.status === 'pending').length;
             const todayOrders = orders.filter(order => 
-                new Date(order.orderDate).toDateString() === today
+                new Date(order.deliveryDate).toDateString() === today
             ).length;
             const urgentOrders = orders.filter(order => 
                 order.urgency === 'emergency' && ['pending', 'confirmed', 'processing'].includes(order.status)
@@ -687,11 +948,16 @@
             document.getElementById('hotelFilter').addEventListener('change', applyFilters);
         });
 
-        // Close modal when clicking outside
+        // Close modals when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('orderDetailsModal');
-            if (event.target === modal) {
-                closeOrderDetails();
+            const trackingModal = document.getElementById('orderTrackingModal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            
+            if (event.target === trackingModal) {
+                closeTrackingModal();
+            }
+            if (event.target === confirmationModal) {
+                closeConfirmationModal();
             }
         }
     </script>
