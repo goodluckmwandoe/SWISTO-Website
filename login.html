@@ -488,14 +488,12 @@
                 btn.disabled = true;
                 
                 setTimeout(() => {
-                    alert(`Login successful! Redirecting to ${userType} dashboard...\n\nIn a real application, this would redirect to the actual dashboard.`);
-                    
-                    // Reset button
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    
-                    // In real implementation, you would redirect to dashboard here
-                    // window.location.href = `dashboard-${userType}.html`;
+                    // Redirect to appropriate dashboard
+                    if (userType === 'hotel') {
+                        window.location.href = 'hotel-dashboard.html';
+                    } else {
+                        window.location.href = 'supplier-dashboard.html';
+                    }
                 }, 1500);
             }
         });
