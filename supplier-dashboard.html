@@ -4,201 +4,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplier Dashboard - SWISTO</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- Supplier Dashboard Navigation -->
+<body class="dashboard-page">
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="swisto-logo.png" alt="SWISTO Kenya">
-                <span style="margin-left: 10px; font-weight: 600; color: #333;">Supplier Dashboard</span>
+                <a href="index.html">
+                    <img src="images/swisto-logo.png" alt="SWISTO Kenya">
+                </a>
             </div>
             <div class="nav-menu">
-                <a href="#overview" class="nav-link active"><i class="fas fa-chart-pie"></i> Overview</a>
-                <a href="orders.html" class="nav-link"><i class="fas fa-shopping-cart"></i> Orders</a>
-                <a href="#inventory" class="nav-link"><i class="fas fa-boxes"></i> Inventory</a>
-                <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
-                <a href="#earnings" class="nav-link"><i class="fas fa-money-bill-wave"></i> Earnings</a>
-            </div>
-            <div class="nav-user">
-                <span class="user-name">Nakuru Supplies Ltd</span>
-                <div class="user-avatar" style="background: var(--secondary); color: white;">
-                    <i class="fas fa-building"></i>
+                <a href="supplier-dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="add-product.html" class="nav-link">Add Products</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="index.html#contact" class="nav-link">Support</a>
+                <div class="nav-user">
+                    <span class="user-name">Supplier Account</span>
+                    <a href="index.html" class="btn btn-outline btn-small">Logout</a>
                 </div>
+            </div>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
     </nav>
 
-    <!-- SUPPLIER DASHBOARD CONTENT -->
-    <section class="dashboard-content" style="padding: 120px 0 80px; margin-top: 80px;">
+    <section class="dashboard-section">
         <div class="container">
-            <!-- Dashboard Header -->
-            <div class="dashboard-header-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div class="dashboard-header">
                 <div>
-                    <h1 style="color: #1E293B; margin-bottom: 0.5rem; font-size: 2.5rem;">Welcome back, Nakuru Supplies Ltd</h1>
-                    <p style="color: #64748B; font-size: 1.2rem; margin: 0;">Premium Supplier • 4.8★ Rating • Ready to fulfill orders</p>
+                    <h1>Supplier Dashboard</h1>
+                    <p>Manage your inventory and fulfill hotel orders efficiently.</p>
                 </div>
-                <div class="quick-actions-light" style="display: flex; gap: 1rem;">
-                    <button class="btn btn-primary" onclick="openInventoryModal()">
-                        <i class="fas fa-edit"></i> Update Stock
-                    </button>
-                    <a href="orders.html" class="btn btn-secondary">
-                        <i class="fas fa-shopping-cart"></i> View All Orders
-                    </a>
+                <div class="emergency-panel">
+                    <h3><i class="fas fa-bell"></i> Active Emergency Requests</h3>
+                    <p>2 urgent orders waiting for confirmation</p>
+                    <a href="orders.html" class="btn btn-emergency">View Requests</a>
                 </div>
             </div>
 
-            <!-- Priority Stats Grid -->
-            <div class="stats-grid-light" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                <!-- Orders Focused Stats -->
-                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease; border-left: 4px solid var(--primary);">
-                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon pending">
                         <i class="fas fa-clock"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Pending Orders</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="pendingOrdersCount">3</div>
-                        <p style="color: #ef4444; font-size: 0.9rem; margin: 0.5rem 0 0;">Require attention</p>
+                        <h3>Pending Orders</h3>
+                        <div class="stat-number">5</div>
                     </div>
                 </div>
-                
-                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease; border-left: 4px solid var(--accent);">
-                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-running"></i>
+                <div class="stat-card">
+                    <div class="stat-icon confirmed">
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Today's Orders</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="todayOrdersCount">5</div>
-                        <p style="color: var(--accent); font-size: 0.9rem; margin: 0.5rem 0 0;">For delivery today</p>
+                        <h3>Today's Orders</h3>
+                        <div class="stat-number">12</div>
                     </div>
                 </div>
-
-                <!-- Inventory Stats -->
-                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
-                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-boxes"></i>
+                <div class="stat-card">
+                    <div class="stat-icon delivered">
+                        <i class="fas fa-truck"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Total Products</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="totalProductsCount">24</div>
+                        <h3>Delivered Today</h3>
+                        <div class="stat-number">8</div>
                     </div>
                 </div>
-                
-                <div class="stat-card-light" style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s ease;">
-                    <div class="stat-icon-light" style="width: 80px; height: 80px; border-radius: 50%; background: #ef4444; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
-                        <i class="fas fa-exclamation-triangle"></i>
+                <div class="stat-card">
+                    <div class="stat-icon budget">
+                        <i class="fas fa-money-bill-wave"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 style="color: #64748B; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase;">Stock Alerts</h3>
-                        <div class="stat-number" style="font-size: 2.5rem; font-weight: bold; color: #1E293B;" id="stockAlertsCount">5</div>
-                        <p style="color: #ef4444; font-size: 0.9rem; margin: 0.5rem 0 0;">Need restocking</p>
+                        <h3>Today's Revenue</h3>
+                        <div class="stat-number">KSh 42,500</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Main Dashboard Content -->
-            <div class="dashboard-main-light" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
-                <!-- Left Column - Primary Content (Orders Focus) -->
+            <div class="dashboard-main">
                 <div class="dashboard-column">
-                    <!-- Urgent Orders Card -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-fire" style="color: #ef4444;"></i> Urgent Orders Requiring Action
-                            </h3>
-                            <a href="orders.html" class="btn btn-outline btn-small">
-                                View All Orders
-                            </a>
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-boxes"></i> Inventory Overview</h3>
+                            <a href="add-product.html" class="btn btn-primary btn-small">Add Product</a>
                         </div>
-                        
-                        <div class="urgent-orders-list" id="urgentOrdersList">
-                            <!-- Urgent orders will be loaded here -->
+                        <div class="inventory-grid">
+                            <div class="inventory-item">
+                                <div class="inventory-header">
+                                    <span>Food Items</span>
+                                    <span class="stock-level high">In Stock</span>
+                                </div>
+                                <div class="stock-amount">45 Items</div>
+                                <div class="stock-warning">Well stocked</div>
+                            </div>
+                            <div class="inventory-item">
+                                <div class="inventory-header">
+                                    <span>Cleaning Supplies</span>
+                                    <span class="stock-level medium">Low Stock</span>
+                                </div>
+                                <div class="stock-amount">8 Items</div>
+                                <div class="stock-warning urgent">Reorder needed</div>
+                            </div>
+                            <div class="inventory-item">
+                                <div class="inventory-header">
+                                    <span>Beverages</span>
+                                    <span class="stock-level high">In Stock</span>
+                                </div>
+                                <div class="stock-amount">32 Items</div>
+                                <div class="stock-warning">Well stocked</div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Today's Orders -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-calendar-day" style="color: var(--primary);"></i> Today's Deliveries
-                            </h3>
-                            <span class="badge" style="background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;" id="todayOrdersBadge">5 Orders</span>
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tasks"></i> Recent Orders</h3>
+                            <a href="orders.html" class="btn btn-outline btn-small">View All</a>
                         </div>
-                        
-                        <div class="todays-orders-list" id="todaysOrdersList">
-                            <!-- Today's orders will be loaded here -->
+                        <div class="orders-list">
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <strong>Beach Resort Diani</strong>
+                                    <span>Emergency: Food Supplies</span>
+                                    <small>Order #SW-001245 | 15 min ago</small>
+                                </div>
+                                <div class="order-details">
+                                    <span class="order-status pending">Pending</span>
+                                    <div class="order-price">KSh 18,200</div>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <strong>Serena Hotel</strong>
+                                    <span>Cleaning Materials</span>
+                                    <small>Order #SW-001244 | 1 hour ago</small>
+                                </div>
+                                <div class="order-details">
+                                    <span class="order-status confirmed">Confirmed</span>
+                                    <div class="order-price">KSh 12,500</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column - Secondary Content (Inventory & Quick Actions) -->
                 <div class="dashboard-column">
-                    <!-- Quick Actions -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-bolt" style="color: var(--primary);"></i> Quick Actions
-                            </h3>
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Performance</h3>
                         </div>
-                        
-                        <div class="quick-actions-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-                            <a href="orders.html?filter=pending" class="quick-action-large" style="background: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit;">
-                                <div class="action-icon" style="width: 50px; height: 50px; border-radius: 12px; background: #ef4444; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                                    <i class="fas fa-clock"></i>
+                        <div class="performance-stats">
+                            <div class="performance-item">
+                                <div class="performance-metric">
+                                    <div class="metric-value">94%</div>
+                                    <div class="metric-label">Order Completion Rate</div>
                                 </div>
-                                <div class="action-text">
-                                    <strong style="color: #1E293B; font-size: 1rem;">Process Pending Orders</strong>
-                                    <span style="color: #64748B; font-size: 0.85rem;">3 orders waiting for confirmation</span>
+                                <div class="performance-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
                                 </div>
-                            </a>
-                            
-                            <button class="quick-action-large" onclick="openInventoryModal()" style="background: #F0F9FF; border: 1px solid #BAE6FD; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 1rem; border: none; width: 100%; text-align: left;">
-                                <div class="action-icon" style="width: 50px; height: 50px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                                    <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="performance-item">
+                                <div class="performance-metric">
+                                    <div class="metric-value">28min</div>
+                                    <div class="metric-label">Avg. Response Time</div>
                                 </div>
-                                <div class="action-text">
-                                    <strong style="color: #1E293B; font-size: 1rem;">Update Stock Levels</strong>
-                                    <span style="color: #64748B; font-size: 0.85rem;">5 items need restocking</span>
+                            </div>
+                            <div class="performance-item">
+                                <div class="performance-metric">
+                                    <div class="metric-value">156</div>
+                                    <div class="metric-label">Total Orders This Month</div>
                                 </div>
-                            </button>
-                            
-                            <a href="add-product.html" class="quick-action-large" style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit;">
-                                <div class="action-icon" style="width: 50px; height: 50px; border-radius: 12px; background: var(--secondary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                                <div class="action-text">
-                                    <strong style="color: #1E293B; font-size: 1rem;">Add New Product</strong>
-                                    <span style="color: #64748B; font-size: 0.85rem;">Expand your catalog</span>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Inventory Alerts -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 2rem;">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-bell" style="color: var(--accent);"></i> Stock Alerts
-                            </h3>
-                            <span class="badge" style="background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;" id="stockAlertsBadge">5 Items</span>
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-truck"></i> Active Deliveries</h3>
                         </div>
-                        
-                        <div class="alerts-list" id="stockAlertsList">
-                            <!-- Stock alerts will be loaded here -->
+                        <div class="deliveries-list">
+                            <div class="delivery-item">
+                                <div class="delivery-info">
+                                    <strong>Pineapple Resort</strong>
+                                    <span>Beverage Order</span>
+                                </div>
+                                <div class="delivery-status">
+                                    <span class="status-badge on-the-way">On the way</span>
+                                    <span class="delivery-time">ETA: 15 min</span>
+                                </div>
+                            </div>
+                            <div class="delivery-item">
+                                <div class="delivery-info">
+                                    <strong>Coastal Hotel</strong>
+                                    <span>Food Supplies</span>
+                                </div>
+                                <div class="delivery-status">
+                                    <span class="status-badge preparing">Preparing</span>
+                                    <span class="delivery-time">Ready in: 25 min</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Recent Activity -->
-                    <div class="dashboard-card-light" style="background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <div class="card-header-light" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #E2E8F0;">
-                            <h3 style="color: #1E293B; display: flex; align-items: center; gap: 0.75rem; margin: 0;">
-                                <i class="fas fa-history" style="color: var(--primary);"></i> Recent Activity
-                            </h3>
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-wallet"></i> Revenue Overview</h3>
                         </div>
-                        <div class="activity-list" id="recentActivityList">
-                            <!-- Recent activity will be loaded here -->
+                        <div class="revenue-overview">
+                            <div class="revenue-total">
+                                <div class="revenue-amount">KSh 425,800</div>
+                                <div class="revenue-label">Monthly Revenue</div>
+                            </div>
+                            <div class="revenue-breakdown">
+                                <div class="revenue-item">
+                                    <span>Today</span>
+                                    <strong>KSh 42,500</strong>
+                                </div>
+                                <div class="revenue-item">
+                                    <span>This Week</span>
+                                    <strong>KSh 198,300</strong>
+                                </div>
+                                <div class="revenue-item">
+                                    <span>Pending Payments</span>
+                                    <strong>KSh 65,200</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -206,391 +245,6 @@
         </div>
     </section>
 
-    <!-- Inventory Management Modal (Keep this for stock updates) -->
-    <div id="inventoryModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div class="modal-content" style="background: white; border-radius: 15px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
-            <div class="modal-header" style="padding: 2rem 2rem 1rem; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="color: #1E293B; margin: 0; display: flex; align-items: center; gap: 0.75rem;">
-                    <i class="fas fa-boxes" style="color: var(--primary);"></i> Update Stock Levels
-                </h2>
-                <button class="btn-icon" onclick="closeInventoryModal()" style="background: none; border: none; font-size: 1.5rem; color: #64748B; cursor: pointer;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="modal-body" style="padding: 2rem;">
-                <!-- Bulk Update Section -->
-                <div class="bulk-update-section" style="margin-bottom: 2rem;">
-                    <h3 style="color: #1E293B; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-sync-alt"></i> Quick Stock Update
-                    </h3>
-                    
-                    <div class="bulk-update-form">
-                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end; margin-bottom: 1rem;">
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Product</label>
-                                <select id="bulkUpdateSelect" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
-                                    <option value="">Select product...</option>
-                                    <!-- Products will be populated dynamically -->
-                                </select>
-                            </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">Current Stock</label>
-                                <input type="text" id="bulkCurrentStock" value="" readonly style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; background: #F8FAFC;">
-                            </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500;">New Stock</label>
-                                <input type="number" id="bulkNewStock" placeholder="Enter quantity" style="width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem;">
-                            </div>
-                            <div>
-                                <button class="btn btn-primary" onclick="addToBulkQueue()" style="white-space: nowrap;">
-                                    <i class="fas fa-plus"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Update Queue -->
-                <div class="update-queue" style="margin-bottom: 2rem;">
-                    <h4 style="color: #1E293B; margin-bottom: 1rem;">Pending Updates</h4>
-                    <div class="queue-list" id="bulkQueueList">
-                        <!-- Queue items will be added here dynamically -->
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer" style="padding: 1rem 2rem 2rem; border-top: 1px solid #E2E8F0; display: flex; justify-content: flex-end; gap: 1rem;">
-                <button class="btn btn-outline" onclick="closeInventoryModal()">
-                    Cancel
-                </button>
-                <button class="btn btn-primary" onclick="saveInventoryUpdates()">
-                    <i class="fas fa-save"></i> Save All Changes
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Sample data for demonstration
-        const sampleOrders = [
-            {
-                id: 'ORD-001',
-                hotel: 'Serena Hotel',
-                items: [
-                    { name: 'Toilet Paper (4-ply)', quantity: 20, unit: 'cartons' },
-                    { name: 'Bath Tissue (2-ply)', quantity: 15, unit: 'cartons' }
-                ],
-                totalAmount: 77000,
-                orderDate: '2024-01-15',
-                deliveryDate: '2024-01-16',
-                urgency: 'emergency',
-                status: 'pending',
-                notes: 'URGENT: Need before 10 AM for guest rooms'
-            },
-            {
-                id: 'ORD-002',
-                hotel: 'Safari Park Hotel',
-                items: [
-                    { name: 'Guest Shampoo (200ml)', quantity: 50, unit: 'bottles' }
-                ],
-                totalAmount: 17500,
-                orderDate: '2024-01-15',
-                deliveryDate: '2024-01-15',
-                urgency: 'high',
-                status: 'pending',
-                notes: 'Same-day delivery required'
-            },
-            {
-                id: 'ORD-003',
-                hotel: 'The Tribe Hotel',
-                items: [
-                    { name: 'Hand Soap', quantity: 30, unit: 'pieces' },
-                    { name: 'Bath Towels', quantity: 25, unit: 'pieces' }
-                ],
-                totalAmount: 45000,
-                orderDate: '2024-01-15',
-                deliveryDate: '2024-01-15',
-                urgency: 'high',
-                status: 'confirmed',
-                notes: 'Deliver to main reception'
-            }
-        ];
-
-        const sampleStockAlerts = [
-            { name: 'Bath Tissue (2-ply)', current: 45, reorder: 50, unit: 'cartons' },
-            { name: 'Guest Shampoo (200ml)', current: 0, reorder: 100, unit: 'bottles' },
-            { name: 'Hand Soap', current: 12, reorder: 25, unit: 'pieces' },
-            { name: 'Bath Towels', current: 8, reorder: 20, unit: 'pieces' },
-            { name: 'Toilet Paper (4-ply)', current: 150, reorder: 30, unit: 'cartons' }
-        ];
-
-        // Load dashboard data
-        function loadDashboardData() {
-            loadUrgentOrders();
-            loadTodaysOrders();
-            loadStockAlerts();
-            loadRecentActivity();
-            updateStats();
-        }
-
-        function loadUrgentOrders() {
-            const urgentOrders = sampleOrders.filter(order => 
-                order.urgency === 'emergency' && order.status === 'pending'
-            );
-            
-            const container = document.getElementById('urgentOrdersList');
-            container.innerHTML = '';
-            
-            if (urgentOrders.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #64748B;">
-                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"></i>
-                        <h4>No Urgent Orders</h4>
-                        <p>All urgent orders have been processed</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            urgentOrders.forEach(order => {
-                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
-                const orderElement = document.createElement('div');
-                orderElement.className = 'order-item';
-                orderElement.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px; margin-bottom: 1rem;';
-                
-                orderElement.innerHTML = `
-                    <div style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                            <strong style="color: #1E293B; font-size: 1.1rem;">${order.hotel}</strong>
-                            <span style="background: #ef4444; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">EMERGENCY</span>
-                        </div>
-                        <div style="color: #64748B; font-size: 0.9rem;">
-                            ${totalItems} items • KES ${order.totalAmount.toLocaleString()} • Due: ${formatDate(order.deliveryDate)}
-                        </div>
-                        ${order.notes ? `<div style="color: #dc2626; font-size: 0.85rem; margin-top: 0.5rem;"><i class="fas fa-exclamation-circle"></i> ${order.notes}</div>` : ''}
-                    </div>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn btn-primary btn-small" onclick="processOrder('${order.id}')">
-                            <i class="fas fa-check"></i> Process
-                        </button>
-                        <button class="btn btn-outline btn-small" onclick="viewOrderDetails('${order.id}')">
-                            <i class="fas fa-eye"></i> View
-                        </button>
-                    </div>
-                `;
-                
-                container.appendChild(orderElement);
-            });
-        }
-
-        function loadTodaysOrders() {
-            const todaysOrders = sampleOrders.filter(order => 
-                order.deliveryDate === new Date().toISOString().split('T')[0]
-            );
-            
-            const container = document.getElementById('todaysOrdersList');
-            const badge = document.getElementById('todayOrdersBadge');
-            container.innerHTML = '';
-            
-            badge.textContent = `${todaysOrders.length} Orders`;
-            
-            if (todaysOrders.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #64748B;">
-                        <i class="fas fa-calendar-check" style="font-size: 3rem; margin-bottom: 1rem; color: var(--secondary);"></i>
-                        <h4>No Deliveries Today</h4>
-                        <p>No orders scheduled for delivery today</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            todaysOrders.forEach(order => {
-                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
-                const orderElement = document.createElement('div');
-                orderElement.className = 'order-item';
-                orderElement.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1.25rem; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; margin-bottom: 0.75rem;';
-                
-                orderElement.innerHTML = `
-                    <div style="flex: 1;">
-                        <strong style="color: #1E293B; display: block; margin-bottom: 0.25rem;">${order.hotel}</strong>
-                        <div style="color: #64748B; font-size: 0.85rem;">
-                            ${totalItems} items • ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-weight: 600; color: #1E293B;">KES ${order.totalAmount.toLocaleString()}</div>
-                        <button class="btn-icon" onclick="viewOrderDetails('${order.id}')" title="View Details">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                `;
-                
-                container.appendChild(orderElement);
-            });
-        }
-
-        function loadStockAlerts() {
-            const container = document.getElementById('stockAlertsList');
-            const badge = document.getElementById('stockAlertsBadge');
-            container.innerHTML = '';
-            
-            badge.textContent = `${sampleStockAlerts.length} Items`;
-            
-            sampleStockAlerts.forEach(alert => {
-                const isOutOfStock = alert.current === 0;
-                const isLowStock = alert.current <= alert.reorder;
-                
-                const alertElement = document.createElement('div');
-                alertElement.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: ' + (isOutOfStock ? '#FEF2F2' : '#FFFBEB') + '; border: 1px solid ' + (isOutOfStock ? '#FECACA' : '#FED7AA') + '; border-radius: 8px; margin-bottom: 0.75rem;';
-                
-                alertElement.innerHTML = `
-                    <div>
-                        <strong style="color: #1E293B; display: block; margin-bottom: 0.25rem;">${alert.name}</strong>
-                        <div style="color: ' + (isOutOfStock ? '#dc2626' : '#d97706') + '; font-size: 0.85rem;">
-                            ${isOutOfStock ? 'Out of Stock' : 'Low Stock'} • Current: ${alert.current} ${alert.unit}
-                        </div>
-                    </div>
-                    <button class="btn btn-outline btn-small" onclick="updateStock('${alert.name}')">
-                        Restock
-                    </button>
-                `;
-                
-                container.appendChild(alertElement);
-            });
-        }
-
-        function loadRecentActivity() {
-            const activities = [
-                { type: 'order', message: 'New order from Serena Hotel', time: '2 hours ago', icon: 'fas fa-shopping-cart', color: 'var(--primary)' },
-                { type: 'stock', message: 'Toilet Paper stock updated', time: '4 hours ago', icon: 'fas fa-arrow-up', color: 'var(--secondary)' },
-                { type: 'order', message: 'Order ORD-002 confirmed', time: '6 hours ago', icon: 'fas fa-check', color: 'var(--secondary)' },
-                { type: 'stock', message: 'Guest Shampoo out of stock', time: '1 day ago', icon: 'fas fa-exclamation', color: '#ef4444' }
-            ];
-            
-            const container = document.getElementById('recentActivityList');
-            container.innerHTML = '';
-            
-            activities.forEach(activity => {
-                const activityElement = document.createElement('div');
-                activityElement.style.cssText = 'display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #F1F5F9;';
-                
-                activityElement.innerHTML = `
-                    <div class="activity-icon" style="width: 40px; height: 40px; border-radius: 50%; background: ${activity.color}; color: white; display: flex; align-items: center; justify-content: center;">
-                        <i class="${activity.icon}"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <strong style="color: #1E293B; display: block;">${activity.message}</strong>
-                        <small style="color: #94A3B8;">${activity.time}</small>
-                    </div>
-                `;
-                
-                container.appendChild(activityElement);
-            });
-        }
-
-        function updateStats() {
-            const pendingOrders = sampleOrders.filter(order => order.status === 'pending').length;
-            const todaysOrders = sampleOrders.filter(order => 
-                order.deliveryDate === new Date().toISOString().split('T')[0]
-            ).length;
-            
-            document.getElementById('pendingOrdersCount').textContent = pendingOrders;
-            document.getElementById('todayOrdersCount').textContent = todaysOrders;
-            document.getElementById('totalProductsCount').textContent = '24';
-            document.getElementById('stockAlertsCount').textContent = sampleStockAlerts.length;
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric' 
-            });
-        }
-
-        function processOrder(orderId) {
-            alert(`Processing order: ${orderId}`);
-            // In real implementation, this would update order status
-        }
-
-        function viewOrderDetails(orderId) {
-            window.location.href = `orders.html?order=${orderId}`;
-        }
-
-        function updateStock(productName) {
-            openInventoryModal();
-            // In real implementation, this would pre-fill the modal
-        }
-
-        // Inventory modal functions (keep existing)
-        function openInventoryModal() {
-            document.getElementById('inventoryModal').style.display = 'flex';
-        }
-
-        function closeInventoryModal() {
-            document.getElementById('inventoryModal').style.display = 'none';
-        }
-
-        function saveInventoryUpdates() {
-            alert('Saving inventory updates...');
-            closeInventoryModal();
-        }
-
-        function addToBulkQueue() {
-            // Implementation for bulk queue
-            alert('Added to bulk update queue');
-        }
-
-        // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            loadDashboardData();
-            
-            // Add hover effects
-            const statCards = document.querySelectorAll('.stat-card-light');
-            statCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-        });
-    </script>
-
-    <style>
-        .quick-action-large:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .order-item:hover {
-            background: #F8FAFC !important;
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard-main-light {
-                grid-template-columns: 1fr;
-            }
-            
-            .quick-actions-light {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <script src="js/script.js"></script>
 </body>
 </html>
-<!-- In supplier-dashboard.html and supplier-login.html -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="supplier-dashboard.html" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="swisto-logo.png" alt="SWISTO Kenya">
-                <span style="margin-left: 10px; font-weight: 600; color: #333;">Supplier Dashboard</span>
-            </a>
-        </div>
-        <!-- Rest of navigation remains the same -->
-    </div>
-</nav>
