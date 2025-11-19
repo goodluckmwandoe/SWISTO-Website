@@ -1,33 +1,57 @@
-// Dashboard specific functionality
-function initializeDashboard() {
-    // Inventory management
-    const inventoryItems = document.querySelectorAll('.inventory-item');
-    inventoryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            alert('Opening inventory management for: ' + this.querySelector('span').textContent);
-        });
-    });
+// Mobile Navigation Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navMenu = document.querySelector('.nav-menu');
 
-    // Order status updates
-    const orderItems = document.querySelectorAll('.order-item');
-    orderItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const orderId = this.querySelector('small').textContent.split('#')[1].split(' ')[0];
-            alert('Viewing order details for: ' + orderId);
-        });
-    });
-
-    // Quick action buttons
-    const quickActions = document.querySelectorAll('.quick-action-btn');
-    quickActions.forEach(action => {
-        action.addEventListener('click', function() {
-            const actionText = this.querySelector('span').textContent;
-            alert('Performing action: ' + actionText);
-        });
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', function() {
+        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 }
 
-// Initialize dashboard when page loads
-if (document.body.classList.contains('dashboard-page')) {
-    document.addEventListener('DOMContentLoaded', initializeDashboard);
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Tab Functionality
+function showTab(tab) {
+    document.getElementById('hotel-tab').style.display = tab === 'hotel' ? 'block' : 'none';
+    document.getElementById('supplier-tab').style.display = tab === 'supplier' ? 'block' : 'none';
+    
+    // Update button styles
+    document.getElementById('hotel-tab-btn').classList.toggle('btn-primary', tab === 'hotel');
+    document.getElementById('hotel-tab-btn').classList.toggle('btn-outline', tab !== 'hotel');
+    document.getElementById('supplier-tab-btn').classList.toggle('btn-primary', tab === 'supplier');
+    document.getElementById('supplier-tab-btn').classList.toggle('btn-outline', tab !== 'supplier');
 }
+
+// Contact Form
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will contact you shortly.');
+        this.reset();
+    });
+}
+
+// Navbar background on scroll
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.backdropFilter = 'blur(10px)';
+    } else {
+        navbar.style.background = '#fff';
+        navbar.style.backdropFilter = 'none';
+    }
+});
