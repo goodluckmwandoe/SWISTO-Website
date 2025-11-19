@@ -507,4 +507,242 @@
                     this.style.transform = 'translateY(-5px)';
                 });
                 card.addEventListener('mouseleave', function() {
-                    this.style
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Table row hover
+            const tableRows = document.querySelectorAll('.inventory-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#F8FAFC';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+
+            // Load products when page loads
+            loadProductsIntoTable();
+            updateStatsCounters();
+            updateQuickStockDropdown();
+        });
+
+        // PRODUCT MANAGEMENT FUNCTIONS
+        function loadProductsIntoTable() {
+            const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+            const inventoryTable = document.getElementById('inventoryTableBody');
+            
+            if (!inventoryTable || products.length === 0) return;
+            
+            // Add each product to the table (before the demo rows)
+            products.forEach(product => {
+                const stockStatus = getStockStatus(product.currentStock, product.reorderLevel);
+                const statusClass = getStatusClass(stockStatus);
+                const statusColor = getStatusColor(stockStatus);
+                
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #F1F5F9';
+                row.innerHTML = `
+                    <td style="padding: 1rem;">
+                        <strong style="color: #1E293B;">${product.name}</strong>
+                        <div style="color: #64748B; font-size: 0.9rem;">SKU: ${product.sku}</div>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <span style="font-weight: 600; color: #1E293B;">${product.currentStock} ${product.unit}</span>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <span style="color: #64748B;">${product.reorderLevel} ${product.unit}</span>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <span class="stock-status ${statusClass}" style="background: ${statusColor}; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                            ${stockStatus}
+                        </span>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <button class="btn-icon" onclick="editProduct('${product.sku}')" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon" onclick="updateStock('${product.sku}')" title="Update Stock">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </td>
+                `;
+                
+                // Add to the top of the table
+                inventoryTable.insertBefore(row, inventoryTable.firstChild);
+            });
+        }
+
+        function getStockStatus(currentStock, reorderLevel) {
+            if (currentStock === 0) return 'Out of Stock';
+            if (currentStock <= reorderLevel) return 'Low Stock';
+            return 'In Stock';
+        }
+
+        function getStatusClass(status) {
+            return status.toLowerCase().replace(' ', '-');
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'In Stock': return 'var(--secondary)';
+                case 'Low Stock': return 'var(--accent)';
+                case 'Out of Stock': return '#ef4444';
+                default: return '#64748B';
+            }
+        }
+
+        function updateStatsCounters() {
+            const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+            const demoProducts = 3; // Our existing demo products
+            
+            const totalProducts = products.length + demoProducts;
+            
+            // Update total products count
+            document.getElementById('totalProductsCount').textContent = totalProducts;
+            document.getElementById('summaryTotal').textContent = totalProducts;
+            
+            // Calculate stock status for all products (demo + new)
+            let inStockCount = 2; // Demo products that are in stock
+            let lowStockCount = 1; // Demo products that are low stock
+            let outOfStockCount = 1; // Demo products that are out of stock
+            
+            products.forEach(product => {
+                const status = getStockStatus(product.currentStock, product.reorderLevel);
+                if (status === 'In Stock') inStockCount++;
+                if (status === 'Low Stock') lowStockCount++;
+                if (status === 'Out of Stock') outOfStockCount++;
+            });
+            
+            // Update counters
+            document.getElementById('lowStockCount').textContent = lowStockCount;
+            document.getElementById('outOfStockCount').textContent = outOfStockCount;
+            document.getElementById('summaryInStock').textContent = inStockCount;
+            document.getElementById('summaryLowStock').textContent = lowStockCount;
+            document.getElementById('summaryOutOfStock').textContent = outOfStockCount;
+            document.getElementById('alertsCount').textContent = `${lowStockCount + outOfStockCount} Items Need Attention`;
+        }
+
+        function updateQuickStockDropdown() {
+            const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+            const dropdown = document.getElementById('quickUpdateSelect');
+            
+            if (!dropdown) return;
+            
+            // Add products to dropdown
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.sku;
+                option.textContent = `${product.name} (${product.sku})`;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function updateBulkUpdateDropdown() {
+            const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+            const dropdown = document.getElementById('bulkUpdateSelect');
+            
+            if (!dropdown) return;
+            
+            // Clear existing options (keep the first "Select product..." option)
+            while (dropdown.children.length > 1) {
+                dropdown.removeChild(dropdown.lastChild);
+            }
+            
+            // Add products to dropdown
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.sku;
+                option.textContent = `${product.name} (${product.sku})`;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function addToBulkQueue() {
+            const productSelect = document.getElementById('bulkUpdateSelect');
+            const newStockInput = document.getElementById('bulkNewStock');
+            
+            if (productSelect.value && newStockInput.value) {
+                const queueList = document.getElementById('bulkQueueList');
+                const queueItem = document.createElement('div');
+                queueItem.className = 'queue-item';
+                queueItem.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #F8FAFC; border-radius: 8px; margin-bottom: 0.5rem;';
+                
+                queueItem.innerHTML = `
+                    <div>
+                        <strong style="color: #1E293B;">${productSelect.options[productSelect.selectedIndex].text}</strong>
+                        <div style="color: #64748B; font-size: 0.9rem;">Current → ${newStockInput.value}</div>
+                    </div>
+                    <button class="btn-icon" onclick="this.parentElement.remove()" style="color: #ef4444;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                queueList.appendChild(queueItem);
+                newStockInput.value = '';
+            }
+        }
+    </script>
+
+    <style>
+        /* Additional styles for the inventory management system */
+        .inventory-table-container {
+            overflow-x: auto;
+        }
+        
+        .inventory-table {
+            min-width: 600px;
+        }
+        
+        .inventory-table tbody tr:hover {
+            background-color: #F8FAFC;
+        }
+        
+        .stock-status.in-stock {
+            background: var(--secondary) !important;
+            color: white !important;
+        }
+        
+        .stock-status.low-stock {
+            background: var(--accent) !important;
+            color: white !important;
+        }
+        
+        .stock-status.out-of-stock {
+            background: #ef4444 !important;
+            color: white !important;
+        }
+        
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        
+        .btn-icon:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .inventory-table {
+                font-size: 0.875rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+            
+            .dashboard-main-light {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
