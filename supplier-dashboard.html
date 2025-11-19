@@ -572,5 +572,104 @@
     <a href="add-product.html" class="nav-link"><i class="fas fa-cube"></i> Products</a>
     <a href="#performance" class="nav-link"><i class="fas fa-trophy"></i> Performance</a>
 </div>
+// Load products from localStorage and update the inventory table
+function loadProductsIntoTable() {
+    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+    const inventoryTable = document.querySelector('.inventory-table tbody');
+    
+    if (!inventoryTable) return;
+    
+    // Clear existing rows (except the demo ones if you want to keep them)
+    // Or replace everything with: inventoryTable.innerHTML = '';
+    
+    // Add each product to the table
+    products.forEach(product => {
+        const stockStatus = getStockStatus(product.currentStock, product.reorderLevel);
+        const statusClass = getStatusClass(stockStatus);
+        
+        const row = document.createElement('tr');
+        row.style.borderBottom = '1px solid #F1F5F9';
+        row.innerHTML = `
+            <td style="padding: 1rem;">
+                <strong style="color: #1E293B;">${product.name}</strong>
+                <div style="color: #64748B; font-size: 0.9rem;">SKU: ${product.sku}</div>
+            </td>
+            <td style="padding: 1rem; text-align: center;">
+                <span style="font-weight: 600; color: #1E293B;">${product.currentStock} ${product.unit}</span>
+            </td>
+            <td style="padding: 1rem; text-align: center;">
+                <span style="color: #64748B;">${product.reorderLevel} ${product.unit}</span>
+            </td>
+            <td style="padding: 1rem; text-align: center;">
+                <span class="stock-status ${statusClass}" style="background: ${getStatusColor(stockStatus)}; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                    ${stockStatus}
+                </span>
+            </td>
+            <td style="padding: 1rem; text-align: center;">
+                <button class="btn-icon" onclick="editProduct('${product.sku}')" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon" onclick="updateStock('${product.sku}')" title="Update Stock">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </td>
+        `;
+        
+        // Add to the top of the table (or wherever you prefer)
+        inventoryTable.appendChild(row);
+    });
+}
+
+function getStockStatus(currentStock, reorderLevel) {
+    if (currentStock === 0) return 'Out of Stock';
+    if (currentStock <= reorderLevel) return 'Low Stock';
+    return 'In Stock';
+}
+
+function getStatusClass(status) {
+    return status.toLowerCase().replace(' ', '-');
+}
+
+function getStatusColor(status) {
+    switch(status) {
+        case 'In Stock': return 'var(--secondary)';
+        case 'Low Stock': return 'var(--accent)';
+        case 'Out of Stock': return '#ef4444';
+        default: return '#64748B';
+    }
+}
+
+// Update stats counters
+function updateStatsCounters() {
+    const products = JSON.parse(localStorage.getItem('supplierProducts') || '[]');
+    
+    // Update total products count
+    const totalProductsElement = document.querySelector('.stat-card-light:nth-child(1) .stat-number');
+    if (totalProductsElement) {
+        totalProductsElement.textContent = products.length;
+    }
+    
+    // You can add similar updates for low stock and out of stock counters
+    let lowStockCount = 0;
+    let outOfStockCount = 0;
+    
+    products.forEach(product => {
+        const status = getStockStatus(product.currentStock, product.reorderLevel);
+        if (status === 'Low Stock') lowStockCount++;
+        if (status === 'Out of Stock') outOfStockCount++;
+    });
+    
+    const lowStockElement = document.querySelector('.stat-card-light:nth-child(2) .stat-number');
+    const outOfStockElement = document.querySelector('.stat-card-light:nth-child(3) .stat-number');
+    
+    if (lowStockElement) lowStockElement.textContent = lowStockCount;
+    if (outOfStockElement) outOfStockElement.textContent = outOfStockCount;
+}
+
+// Call these functions when the dashboard loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadProductsIntoTable();
+    updateStatsCounters();
+});
 
 
