@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWISTO - Emergency Supply Platform</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SWISTO - Emergency Supply Platform for Kenyan Hospitality</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">SWISTO</a>
+            <div class="nav-logo">
+                <img src="swisto-logo.png" alt="SWISTO Kenya">
+            </div>
             <div class="nav-menu">
                 <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
+                <a href="#about" class="nav-link">About SWISTO</a>
                 <a href="#how-it-works" class="nav-link">How It Works</a>
                 <a href="#pricing" class="nav-link">For Suppliers</a>
-                <a href="hotel-login.html" class="nav-link">Login</a>
+                <a href="#login" class="nav-link">Login</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
             <div class="nav-toggle" id="mobile-menu">
@@ -33,9 +35,9 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Emergency Supply Platform for Kenyan Hospitality</h1>
-                <p>Connect with verified suppliers for same-day delivery of essential supplies. Never face operational disruptions again.</p>
+                <p>SWISTO connects hotels with verified suppliers for same-day delivery of essential supplies. Never face operational disruptions again.</p>
                 <div class="hero-buttons">
-                    <a href="hotel-login.html" class="btn btn-primary">Access Platform</a>
+                    <a href="#login" class="btn btn-primary">Access Platform</a>
                     <a href="#about" class="btn btn-secondary">Learn More</a>
                 </div>
                 <div class="hero-stats">
@@ -45,166 +47,317 @@
                     </div>
                     <div class="stat">
                         <h3>24/7</h3>
-                        <p>Service</p>
+                        <p>Emergency Service</p>
                     </div>
                     <div class="stat">
                         <h3>100%</h3>
-                        <p>Verified</p>
+                        <p>Stock Verification</p>
                     </div>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="emergency-card">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Emergency Request</h4>
+                    <h4>🚨 EMERGENCY REQUEST</h4>
                     <p>Get connected to verified suppliers in minutes</p>
-                    <a href="https://wa.me/254794465650" class="btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i> WhatsApp Emergency
+                    <a href="https://wa.me/254794465650?text=Emergency%20supply%20needed" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Emergency Line
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section section-light">
+    <!-- What is SWISTO Section -->
+    <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">What is SWISTO?</h2>
-            <p class="section-subtitle">Kenya's premier emergency procurement platform for the hospitality industry</p>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-icon">
+            <h2>What is SWISTO?</h2>
+            <div class="about-content">
+                <p class="lead">SWISTO is Kenya's premier emergency procurement platform specifically designed for the hospitality industry. We bridge the gap between hotels in urgent need and verified suppliers, ensuring same-day delivery of essential supplies.</p>
+                
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Our Mission</h3>
+                        <p>To eliminate operational disruptions in hospitality through reliable, tech-enabled emergency supply chain solutions.</p>
+                    </div>
+                    <div class="mission-card">
+                        <i class="fas fa-eye"></i>
+                        <h3>Our Vision</h3>
+                        <p>To become East Africa's most trusted emergency supply network for the hospitality industry.</p>
+                    </div>
+                </div>
+
+                <h3>How We Serve the Hospitality Industry</h3>
+                <div class="services-grid">
+                    <div class="service-item">
                         <i class="fas fa-hotel"></i>
+                        <h4>For Hotels & Resorts</h4>
+                        <p>Instant access to verified suppliers, real-time stock visibility, and guaranteed same-day delivery for emergency needs. Protect your guest experience and operational continuity.</p>
+                        <ul>
+                            <li>Verified supplier network</li>
+                            <li>Real-time stock levels</li>
+                            <li>Same-day delivery guarantee</li>
+                            <li>Quality assurance</li>
+                        </ul>
                     </div>
-                    <h3>For Hotels & Resorts</h3>
-                    <p>Instant access to verified suppliers with real-time stock visibility and guaranteed same-day delivery.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
+                    <div class="service-item">
                         <i class="fas fa-truck"></i>
+                        <h4>For Suppliers & Vendors</h4>
+                        <p>Direct access to premium hotel clients, streamlined order management, and business growth opportunities. Join a trusted network of hospitality suppliers.</p>
+                        <ul>
+                            <li>Qualified emergency leads</li>
+                            <li>Premium hotel clients</li>
+                            <li>Real-time order management</li>
+                            <li>Business growth opportunities</li>
+                        </ul>
                     </div>
-                    <h3>For Suppliers</h3>
-                    <p>Direct access to premium hotel clients with streamlined order management and business growth opportunities.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="section">
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Register</h3>
-                    <p>Create your account with verification</p>
+            <h2>How SWISTO Works</h2>
+            <div class="process-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="hotel-tab">For Hotels</button>
+                    <button class="tab-button" data-tab="supplier-tab">For Suppliers</button>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Browse</h3>
-                    <p>Find verified suppliers with real stock</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Order</h3>
-                    <p>Place your emergency order</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Deliver</h3>
-                    <p>Get same-day delivery</p>
+                
+                <div class="tab-content">
+                    <div id="hotel-tab" class="tab-pane active">
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <h3>Register Your Hotel</h3>
+                                <p>Create your hotel account with verification to access our supplier network</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <h3>Set Delivery Location</h3>
+                                <p>Specify your hotel location for accurate supplier matching and delivery</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <h3>Browse Available Suppliers</h3>
+                                <p>View verified suppliers with real-time stock levels and ratings</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <h3>Place Emergency Order</h3>
+                                <p>Order with confidence knowing stock is available and delivery is guaranteed</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="supplier-tab" class="tab-pane">
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <h3>Apply as Supplier</h3>
+                                <p>Submit your business details for verification and background check</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <h3>Choose Subscription</h3>
+                                <p>Select your membership plan (Basic, Premium, or Enterprise)</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <h3>Manage Your Inventory</h3>
+                                <p>Update real-time stock levels in your supplier dashboard</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <h3>Receive Orders</h3>
+                                <p>Get qualified emergency leads from premium hotel clients</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing -->
-    <section id="pricing" class="section section-light">
+    <!-- Supplier Pricing Section -->
+    <section id="pricing" class="pricing">
         <div class="container">
-            <h2 class="section-title">Supplier Plans</h2>
-            <p class="section-subtitle">Join our network of trusted suppliers</p>
+            <h2>Supplier Membership Plans</h2>
+            <p class="section-subtitle">Join Kenya's premier hospitality supply network</p>
             
             <div class="pricing-plans">
                 <div class="plan">
-                    <h3>Basic</h3>
-                    <div class="price">KSh 2,500<span>/month</span></div>
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <div class="price">KSh 2,500<span>/month</span></div>
+                    </div>
                     <ul class="plan-features">
-                        <li>Supplier Listing</li>
-                        <li>Emergency Requests</li>
-                        <li>Basic Order Management</li>
+                        <li><i class="fas fa-check"></i> Supplier Listing in Directory</li>
+                        <li><i class="fas fa-check"></i> Receive Emergency Requests</li>
+                        <li><i class="fas fa-check"></i> Basic Order Management</li>
+                        <li><i class="fas fa-check"></i> Standard Search Placement</li>
+                        <li><i class="fas fa-times"></i> Priority Notification</li>
+                        <li><i class="fas fa-times"></i> Featured Supplier Badge</li>
                     </ul>
-                    <a href="supplier-register.html" class="btn btn-outline">Get Started</a>
+                    <a href="supplier-register.html?plan=basic" class="btn btn-outline">Get Started</a>
                 </div>
                 
                 <div class="plan featured">
                     <div class="plan-badge">Most Popular</div>
-                    <h3>Premium</h3>
-                    <div class="price">KSh 5,000<span>/month</span></div>
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <div class="price">KSh 5,000<span>/month</span></div>
+                    </div>
                     <ul class="plan-features">
-                        <li>Top Search Placement</li>
-                        <li>Priority Notification</li>
-                        <li>Featured Badge</li>
-                        <li>Advanced Analytics</li>
+                        <li><i class="fas fa-check"></i> Top Placement in Search Results</li>
+                        <li><i class="fas fa-check"></i> Priority Notification of Emergencies</li>
+                        <li><i class="fas fa-check"></i> Featured Supplier Badge</li>
+                        <li><i class="fas fa-check"></i> Advanced Analytics Dashboard</li>
+                        <li><i class="fas fa-check"></i> Dedicated Support</li>
+                        <li><i class="fas fa-check"></i> Performance Insights</li>
                     </ul>
-                    <a href="supplier-register.html" class="btn btn-primary">Get Premium</a>
+                    <a href="supplier-register.html?plan=premium" class="btn btn-primary">Get Premium</a>
                 </div>
                 
                 <div class="plan">
-                    <h3>Enterprise</h3>
-                    <div class="price">KSh 10,000<span>/month</span></div>
+                    <div class="plan-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">KSh 10,000<span>/month</span></div>
+                    </div>
                     <ul class="plan-features">
-                        <li>All Premium Features</li>
-                        <li>API Access</li>
-                        <li>Custom Integration</li>
-                        <li>Dedicated Manager</li>
+                        <li><i class="fas fa-check"></i> All Premium Features</li>
+                        <li><i class="fas fa-check"></i> API Access for Inventory Sync</li>
+                        <li><i class="fas fa-check"></i> Custom Integration</li>
+                        <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                        <li><i class="fas fa-check"></i> Bulk Order Management</li>
+                        <li><i class="fas fa-check"></i> Custom Reporting</li>
                     </ul>
                     <a href="#contact" class="btn btn-outline">Contact Sales</a>
+                </div>
+            </div>
+            
+            <div class="pricing-note">
+                <p><strong>Note:</strong> Suppliers with zero stock are automatically hidden from search results, regardless of subscription tier. Real-time inventory management is required.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Portal Section -->
+    <section id="login" class="login-portal">
+        <div class="container">
+            <h2>Access SWISTO Platform</h2>
+            <p class="section-subtitle">Choose your portal to continue</p>
+            
+            <div class="login-options">
+                <div class="login-card">
+                    <div class="login-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3>Hotel Access</h3>
+                    <p>For procurement officers and hotel management staff</p>
+                    <div class="login-features">
+                        <span><i class="fas fa-check"></i> Emergency ordering</span>
+                        <span><i class="fas fa-check"></i> Supplier directory</span>
+                        <span><i class="fas fa-check"></i> Order tracking</span>
+                    </div>
+                    <div class="login-buttons">
+                        <a href="hotel-login.html" class="btn btn-primary">Hotel Login</a>
+                        <a href="hotel-register.html" class="btn btn-secondary">Register Hotel</a>
+                    </div>
+                </div>
+                
+                <div class="login-card">
+                    <div class="login-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Supplier Access</h3>
+                    <p>For verified suppliers and product vendors</p>
+                    <div class="login-features">
+                        <span><i class="fas fa-check"></i> Inventory management</span>
+                        <span><i class="fas fa-check"></i> Order fulfillment</span>
+                        <span><i class="fas fa-check"></i> Business analytics</span>
+                    </div>
+                    <div class="login-buttons">
+                        <a href="supplier-login.html" class="btn btn-primary">Supplier Login</a>
+                        <a href="supplier-register.html" class="btn btn-secondary">Join as Supplier</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section">
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
-                <div>
-                    <h3 style="margin-bottom: 2rem;">Get in Touch</h3>
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4>Emergency Hotline</h4>
-                        <p>+254 794 465 650</p>
+            <h2>Contact SWISTO</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Emergency Hotline</h4>
+                            <p>+254 794 465 650</p>
+                        </div>
                     </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4>WhatsApp</h4>
-                        <p>+254 794 465 650</p>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp Business</h4>
+                            <p>+254 794 465 650</p>
+                        </div>
                     </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4>Email</h4>
-                        <p>henrymwandoe004@gmail.com</p>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>henrymwandoe004@gmail.com</p>
+                        </div>
                     </div>
-                    <div>
-                        <h4>Location</h4>
-                        <p>Diani, Kwale County, Kenya</p>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Headquarters</h4>
+                            <p>Diani, Kwale County, Kenya</p>
+                        </div>
+                    </div>
+                    <div class="business-hours">
+                        <h4>Service Hours</h4>
+                        <p>Emergency Line: 24/7</p>
+                        <p>Customer Support: 6:00 AM - 10:00 PM EAT</p>
                     </div>
                 </div>
                 
-                <div>
-                    <h3 style="margin-bottom: 2rem;">Send Message</h3>
-                    <form>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
                         <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" required>
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" required>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Message</label>
-                            <textarea rows="4" required></textarea>
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">I am a</label>
+                            <select id="type" name="type" required>
+                                <option value="">Select...</option>
+                                <option value="hotel">Hotel/Resort Manager</option>
+                                <option value="supplier">Potential Supplier</option>
+                                <option value="partner">Business Partner</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your needs..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -218,32 +371,62 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>SWISTO</h4>
-                    <p>Emergency supply platform for Kenyan hospitality industry.</p>
+                    <img src="swisto-logo.png" alt="SWISTO Kenya" style="height: 40px; margin-bottom: 1rem;">
+                    <p>Kenya's premier emergency supply platform for the hospitality industry.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Links</h4>
+                    <h4>Quick Links</h4>
                     <a href="#home">Home</a>
-                    <a href="#about">About</a>
+                    <a href="#about">About SWISTO</a>
                     <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Supplier Plans</a>
+                    <a href="#login">Platform Access</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Hotels</h4>
-                    <a href="hotel-register.html">Register</a>
-                    <a href="hotel-login.html">Login</a>
+                    <h4>For Hotels</h4>
+                    <a href="hotel-register.html">Register Hotel</a>
+                    <a href="hotel-login.html">Hotel Login</a>
+                    <a href="#contact">Emergency Support</a>
+                    <a href="#how-it-works">How to Order</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Suppliers</h4>
-                    <a href="supplier-register.html">Join</a>
-                    <a href="supplier-login.html">Login</a>
+                    <h4>For Suppliers</h4>
+                    <a href="supplier-register.html">Join as Supplier</a>
+                    <a href="supplier-login.html">Supplier Login</a>
+                    <a href="#pricing">Pricing Plans</a>
+                    <a href="#contact">Supplier Support</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Emergency</h4>
+                    <a href="https://wa.me/254794465650" class="emergency-link">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Emergency
+                    </a>
+                    <p>Available 24/7</p>
+                    <p>+254 794 465 650</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 SWISTO Kenya. All rights reserved.</p>
+                <p>&copy; 2025 SWISTO Kenya. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+<!-- In index.html -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+                <img src="swisto-logo.png" alt="SWISTO Kenya">
+            </a>
+        </div>
+        <!-- Rest of navigation remains the same -->
+    </div>
+</nav>
