@@ -50,30 +50,27 @@
             transition: var(--transition);
         }
         
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        
-        .logo-text {
-            color: var(--primary);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-left: 10px;
-        }
-        
-        .logo-icon {
-            color: var(--secondary);
-            font-size: 2rem;
-        }
+       <!-- Header -->
+<header id="header">
+    <div class="container header-container">
+        <a href="#" class="logo">
+            <img src="swisto-logo.png" alt="SWISTO Logo" class="logo-img">
+        </a>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#solution">Our Solution</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="login.html" class="cta-button">Login to Dashboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
         
         nav ul {
             display: flex;
@@ -1113,3 +1110,4 @@
     </script>
 </body>
 </html>
+
