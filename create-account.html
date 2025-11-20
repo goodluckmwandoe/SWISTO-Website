@@ -224,6 +224,36 @@
         .btn-secondary:hover {
             background: #e9ecef;
         }
+
+        /* FIXED: Account Type Selection Styles */
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .user-type-btn {
+            padding: 25px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .user-type-btn.active {
+            border-color: var(--primary);
+            background: rgba(26, 82, 118, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 82, 118, 0.1);
+        }
+        
+        .user-type-btn:hover {
+            border-color: var(--primary);
+            background: rgba(26, 82, 118, 0.02);
+        }
         
         .terms {
             margin-top: 20px;
@@ -316,24 +346,24 @@
                 <h2 style="margin-bottom: 20px; color: var(--primary);">Choose Your Account Type</h2>
                 <p style="color: var(--gray); margin-bottom: 25px;">Select the type of account that best describes your needs</p>
                 
-                <div class="user-type-selector" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+                <div class="user-type-selector">
                     <div class="user-type-btn active" data-type="hotel">
                         <i class="fas fa-hotel" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 12px;"></i>
-                        <span style="display: block; font-weight: 600; color: var(--dark);">Hotel Manager</span>
-                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 8px;">Request emergency supplies for your hospitality business</p>
+                        <span style="display: block; font-weight: 600; color: var(--dark); margin-bottom: 8px;">Hotel Manager</span>
+                        <p style="font-size: 0.85rem; color: var(--gray); line-height: 1.4;">Request emergency supplies for your hospitality business</p>
                     </div>
                     <div class="user-type-btn" data-type="supplier">
                         <i class="fas fa-truck" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 12px;"></i>
-                        <span style="display: block; font-weight: 600; color: var(--dark);">Supplier</span>
-                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 8px;">Provide supplies to hotels and earn revenue</p>
+                        <span style="display: block; font-weight: 600; color: var(--dark); margin-bottom: 8px;">Supplier</span>
+                        <p style="font-size: 0.85rem; color: var(--gray); line-height: 1.4;">Provide supplies to hotels and earn revenue</p>
                     </div>
                 </div>
                 
                 <div class="form-actions">
-                    <button class="btn btn-secondary" onclick="location.href='login.html'">
+                    <button type="button" class="btn btn-secondary" onclick="location.href='login.html'">
                         <i class="fas fa-arrow-left"></i> Back to Login
                     </button>
-                    <button class="btn btn-primary" onclick="nextStep(2)">
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">
                         Continue <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -341,7 +371,7 @@
             
             <!-- Step 2: Business Information -->
             <div class="form-step" id="step2">
-                <h2 style="margin-bottom: 20px; color: var(--primary);">Business Information</h2>
+                <h2 style="margin-bottom: 20px; color: var(--primary);" id="step2-title">Hotel Business Information</h2>
                 <p style="color: var(--gray); margin-bottom: 25px;">Tell us about your business</p>
                 
                 <form id="registrationForm">
@@ -367,7 +397,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="businessName">Business Name *</label>
+                        <label for="businessName" id="businessNameLabel">Hotel Name *</label>
                         <input type="text" id="businessName" required>
                     </div>
                     
@@ -375,12 +405,7 @@
                         <label for="businessType">Business Type *</label>
                         <select id="businessType" required>
                             <option value="">Select business type</option>
-                            <option value="hotel">Hotel/Resort</option>
-                            <option value="restaurant">Restaurant</option>
-                            <option value="catering">Catering Service</option>
-                            <option value="supplier">Supplies Distributor</option>
-                            <option value="manufacturer">Manufacturer</option>
-                            <option value="other">Other</option>
+                            <!-- Options will be populated by JavaScript -->
                         </select>
                     </div>
                     
@@ -409,7 +434,7 @@
                     
                     <div class="terms">
                         <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" required style="margin-top: 3px;">
+                            <input type="checkbox" id="termsAgreement" required style="margin-top: 3px;">
                             <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that SWISTO will verify my business information before account activation.</span>
                         </label>
                     </div>
@@ -449,18 +474,75 @@
         let currentStep = 1;
         let accountType = 'hotel';
         
-        // User type selection
-        const userTypeBtns = document.querySelectorAll('.user-type-btn');
-        userTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                userTypeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                accountType = this.getAttribute('data-type');
-            });
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAccountTypeSelection();
+            updateBusinessForm();
         });
+
+        // FIXED: Account type selection functionality
+        function initializeAccountTypeSelection() {
+            const userTypeBtns = document.querySelectorAll('.user-type-btn');
+            
+            userTypeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    userTypeBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update account type
+                    accountType = this.getAttribute('data-type');
+                    
+                    // Update the form based on account type
+                    updateBusinessForm();
+                });
+            });
+        }
+        
+        // FIXED: Update form based on account type
+        function updateBusinessForm() {
+            const step2Title = document.getElementById('step2-title');
+            const businessNameLabel = document.getElementById('businessNameLabel');
+            const businessTypeSelect = document.getElementById('businessType');
+            
+            if (accountType === 'hotel') {
+                step2Title.textContent = 'Hotel Business Information';
+                businessNameLabel.textContent = 'Hotel Name *';
+                businessTypeSelect.innerHTML = `
+                    <option value="">Select business type</option>
+                    <option value="hotel">Hotel/Resort</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="catering">Catering Service</option>
+                    <option value="lodge">Lodge</option>
+                    <option value="guesthouse">Guesthouse</option>
+                    <option value="other">Other Hospitality Business</option>
+                `;
+            } else {
+                step2Title.textContent = 'Supplier Business Information';
+                businessNameLabel.textContent = 'Company Name *';
+                businessTypeSelect.innerHTML = `
+                    <option value="">Select business type</option>
+                    <option value="supplier">Supplies Distributor</option>
+                    <option value="manufacturer">Manufacturer</option>
+                    <option value="wholesaler">Wholesaler</option>
+                    <option value="retailer">Retailer</option>
+                    <option value="importer">Importer</option>
+                    <option value="other">Other Supply Business</option>
+                `;
+            }
+        }
         
         // Step navigation
         function nextStep(step) {
+            // Validate step 1 before proceeding
+            if (step === 2 && currentStep === 1) {
+                if (!validateStep1()) {
+                    return;
+                }
+            }
+            
             document.getElementById(`step${currentStep}`).classList.remove('active');
             document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
             
@@ -485,9 +567,25 @@
             document.getElementById(`step${currentStep}-indicator`).classList.add('active');
         }
         
+        // Validate step 1
+        function validateStep1() {
+            // Account type is already selected via the active class
+            const activeButton = document.querySelector('.user-type-btn.active');
+            if (!activeButton) {
+                alert('Please select an account type to continue.');
+                return false;
+            }
+            return true;
+        }
+        
         // Form submission
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Basic validation
+            if (!validateForm()) {
+                return;
+            }
             
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -503,6 +601,13 @@
                 return;
             }
             
+            // Check terms agreement
+            const termsAgreement = document.getElementById('termsAgreement');
+            if (!termsAgreement.checked) {
+                alert('Please agree to the Terms of Service and Privacy Policy to continue.');
+                return;
+            }
+            
             // Show loading state
             const btn = this.querySelector('.btn-primary');
             const originalText = btn.innerHTML;
@@ -512,32 +617,45 @@
             // Simulate API call
             setTimeout(() => {
                 nextStep(3);
+                
+                // Reset button state (though we're navigating away)
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }, 2000);
         });
         
-        // Dynamic form updates based on account type
-        userTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const businessTypeSelect = document.getElementById('businessType');
-                if (accountType === 'hotel') {
-                    businessTypeSelect.innerHTML = `
-                        <option value="">Select business type</option>
-                        <option value="hotel">Hotel/Resort</option>
-                        <option value="restaurant">Restaurant</option>
-                        <option value="catering">Catering Service</option>
-                        <option value="lodge">Lodge</option>
-                        <option value="other">Other</option>
-                    `;
-                } else {
-                    businessTypeSelect.innerHTML = `
-                        <option value="">Select business type</option>
-                        <option value="supplier">Supplies Distributor</option>
-                        <option value="manufacturer">Manufacturer</option>
-                        <option value="wholesaler">Wholesaler</option>
-                        <option value="retailer">Retailer</option>
-                        <option value="other">Other</option>
-                    `;
+        // Form validation
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('#registrationForm [required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--accent)';
+                    
+                    // Remove error styling when user starts typing
+                    field.addEventListener('input', function() {
+                        this.style.borderColor = '#e0e0e0';
+                    });
                 }
+            });
+            
+            if (!isValid) {
+                alert('Please fill in all required fields marked with *.');
+            }
+            
+            return isValid;
+        }
+        
+        // Add some visual feedback for form interactions
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
             });
         });
     </script>
